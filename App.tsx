@@ -6,6 +6,7 @@ function App(): JSX.Element {
   return (
     <SafeAreaView>
       <Text>JUNIOR</Text>
+      <Text style={{fontFamily: 'Satoshi-MediumItalic'}}>JUNIOR</Text>
     </SafeAreaView>
   );
 }
