@@ -5,8 +5,10 @@ import {Text} from './src/components/Text/Text';
 function App(): JSX.Element {
   return (
     <SafeAreaView>
-      <Text>JUNIOR</Text>
-      <Text style={{fontFamily: 'Satoshi-MediumItalic'}}>JUNIOR</Text>
+      <Text preset="headingSmall">JUNIOR</Text>
+      <Text semiBold italic>
+        JUNIOR
+      </Text>
     </SafeAreaView>
   );
 }
