@@ -4,6 +4,7 @@ import {Text} from './src/components/Text/Text';
 import {ThemeProvider} from '@shopify/restyle';
 import {theme} from './src/theme/theme';
 import {Button} from './src/components/Button/Button';
+import {Box} from './src/components/Box/Box';
 
 function App(): JSX.Element {
   return (
@@ -13,7 +14,9 @@ function App(): JSX.Element {
           JUNIOR
         </Text>
 
-        <Button title="Entrar" />
+        <Box paddingHorizontal="s24">
+          <Button title="Entrar" />
+        </Box>
       </SafeAreaView>
     </ThemeProvider>
   );

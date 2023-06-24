@@ -1,23 +1,23 @@
 import React from 'react';
 import {Text} from '../Text/Text';
-import {Box} from '../Box/Box';
-
-import {useTheme} from '@shopify/restyle';
-import {ThemeType} from '../../theme/theme';
+import {TouchableOpacityBox} from '../Box/Box';
 
 type ButtonProps = {
   title: string;
 };
 
 export function Button({title}: ButtonProps) {
-  const {colors} = useTheme<ThemeType>();
   return (
-    <Box
-      padding="s20"
-      style={{
-        backgroundColor: colors.carrotSecondary,
-      }}>
-      <Text>{title}</Text>
-    </Box>
+    <TouchableOpacityBox
+      backgroundColor="buttonPrimary"
+      paddingHorizontal="s20"
+      height={50}
+      borderRadius="s16"
+      alignItems="center"
+      justifyContent="center">
+      <Text preset="paragraphMedium" bold style={{color: '#fff'}}>
+        {title}
+      </Text>
+    </TouchableOpacityBox>
   );
 }
