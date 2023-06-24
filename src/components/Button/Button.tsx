@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text} from '../Text/Text';
-import {TouchableOpacityBox} from '../Box/Box';
+import {TouchableOpacityBox, TouchableOpacityBoxProps} from '../Box/Box';
 
 type ButtonProps = {
   title: string;
-};
+} & TouchableOpacityBoxProps;
 
-export function Button({title}: ButtonProps) {
+export function Button({title, ...touchableOpacityBoxProps}: ButtonProps) {
   return (
     <TouchableOpacityBox
       backgroundColor="buttonPrimary"
@@ -14,7 +14,8 @@ export function Button({title}: ButtonProps) {
       height={50}
       borderRadius="s16"
       alignItems="center"
-      justifyContent="center">
+      justifyContent="center"
+      {...touchableOpacityBoxProps}>
       <Text preset="paragraphMedium" bold style={{color: '#fff'}}>
         {title}
       </Text>
