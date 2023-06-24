@@ -15,7 +15,8 @@ function App(): JSX.Element {
         </Text>
 
         <Box paddingHorizontal="s24">
-          <Button title="Entrar" />
+          <Button title="Entrar" mb="s16" />
+          <Button title="Outline" preset="outline" />
         </Box>
       </SafeAreaView>
     </ThemeProvider>
