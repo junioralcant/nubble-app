@@ -1,6 +1,7 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
 import {Text} from '../Text/Text';
+import {Box} from '../Box/Box';
+
 import {useTheme} from '@shopify/restyle';
 import {ThemeType} from '../../theme/theme';
 
@@ -11,11 +12,12 @@ type ButtonProps = {
 export function Button({title}: ButtonProps) {
   const {colors} = useTheme<ThemeType>();
   return (
-    <TouchableOpacity
+    <Box
+      padding="s20"
       style={{
         backgroundColor: colors.carrotSecondary,
       }}>
       <Text>{title}</Text>
-    </TouchableOpacity>
+    </Box>
   );
 }
