@@ -1,3 +1,4 @@
+import {ComponentProps} from 'react';
 import {
   BackgroundColorProps,
   BorderProps,
@@ -17,6 +18,7 @@ import {ThemeType} from '../../theme/theme';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 export const Box = createBox<ThemeType>();
+export type BoxProps = ComponentProps<typeof Box>;
 
 export type TouchableOpacityBoxProps = BackgroundColorProps<ThemeType> &
   BorderProps<ThemeType> &

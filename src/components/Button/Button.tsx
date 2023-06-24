@@ -16,7 +16,7 @@ export function Button({title, ...touchableOpacityBoxProps}: ButtonProps) {
       alignItems="center"
       justifyContent="center"
       {...touchableOpacityBoxProps}>
-      <Text preset="paragraphMedium" bold style={{color: '#fff'}}>
+      <Text preset="paragraphMedium" bold color="primaryContrast">
         {title}
       </Text>
     </TouchableOpacityBox>
