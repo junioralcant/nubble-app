@@ -14,12 +14,14 @@ type TextInputProps = {
   label: string;
   errorMessage?: string;
   RightComponent?: React.ReactElement;
+  boxProps?: BoxProps;
 } & RNTextInputProps;
 
 export function TextInput({
   label,
   errorMessage,
   RightComponent,
+  boxProps,
   ...rnTextInput
 }: TextInputProps) {
   const {colors} = useAppTheme();
@@ -37,8 +39,8 @@ export function TextInput({
     inputRef.current?.focus();
   }
   return (
-    <Pressable onPress={focusInput}>
-      <Box>
+    <Box {...boxProps}>
+      <Pressable onPress={focusInput}>
         <Text preset="paragraphMedium" mb="s4">
           {label}
         </Text>
@@ -61,8 +63,8 @@ export function TextInput({
             {errorMessage}
           </Text>
         )}
-      </Box>
-    </Pressable>
+      </Pressable>
+    </Box>
   );
 }
 
