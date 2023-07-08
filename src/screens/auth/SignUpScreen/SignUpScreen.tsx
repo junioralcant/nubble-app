@@ -7,7 +7,7 @@ import {Button} from '../../../components/Button/Button';
 
 export function SignUpScreen() {
   return (
-    <Screen canGoBack>
+    <Screen canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
         Criar um conta
       </Text>
@@ -26,6 +26,27 @@ export function SignUpScreen() {
 
       <TextInput
         label="Senha"
+        placeholder="Digite sua senha"
+        RightComponent={<Icon color="gray2" name="eyeOn" />}
+        boxProps={{mb: 's48'}}
+      />
+
+      <TextInput
+        label="Senha"
+        placeholder="Digite sua senha"
+        RightComponent={<Icon color="gray2" name="eyeOn" />}
+        boxProps={{mb: 's48'}}
+      />
+
+      <TextInput
+        label="Senha"
+        placeholder="Digite sua senha"
+        RightComponent={<Icon color="gray2" name="eyeOn" />}
+        boxProps={{mb: 's48'}}
+      />
+
+      <TextInput
+        label="Teste"
         placeholder="Digite sua senha"
         RightComponent={<Icon color="gray2" name="eyeOn" />}
         boxProps={{mb: 's48'}}
