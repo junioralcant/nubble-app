@@ -1,4 +1,6 @@
 import React from 'react';
+import {Pressable} from 'react-native';
+
 import {EyeOnIcon} from '../../assets/icons/EyeOnIcon';
 import {EyeOffIcon} from '../../assets/icons/EyeOffIcon';
 import {ThemeColorsTypes} from '../../theme/theme';
@@ -38,11 +40,26 @@ type IconProps = {
   name: IconNameTypes;
   color?: ThemeColorsTypes;
   size?: number;
+  onPress?: () => void;
 };
 
-export function Icon({name, color = 'backgroundContrast', size}: IconProps) {
+export function Icon({
+  name,
+  color = 'backgroundContrast',
+  size,
+  onPress,
+}: IconProps) {
   const {colors} = useAppTheme();
   const SVGIcons = iconRegistry[name];
+
+  if (onPress) {
+    return (
+      <Pressable hitSlop={10} onPress={onPress}>
+        <SVGIcons color={colors[color]} size={size} />
+      </Pressable>
+    );
+  }
+
   return <SVGIcons color={colors[color]} size={size} />;
 }
 

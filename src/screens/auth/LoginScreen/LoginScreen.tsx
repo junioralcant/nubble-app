@@ -1,9 +1,9 @@
 import React from 'react';
 import {Text} from '../../../components/Text/Text';
 import {TextInput} from '../../../components/TextInput/TextInput';
-import {Icon} from '../../../components/Icon/Icon';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
+import {InputPassword} from '../../../components/InputPassword/InputPassWord';
 
 export function LoginScreen() {
   return (
@@ -21,11 +21,10 @@ export function LoginScreen() {
         boxProps={{mb: 's20'}}
       />
 
-      <TextInput
+      <InputPassword
         errorMessage="teste erro"
         label="Senha"
         placeholder="Digite sua senha"
-        RightComponent={<Icon color="gray2" name="eyeOn" />}
         boxProps={{mt: 's10'}}
       />
 
