@@ -31,27 +31,6 @@ export function SignUpScreen() {
         boxProps={{mb: 's48'}}
       />
 
-      <TextInput
-        label="Senha"
-        placeholder="Digite sua senha"
-        RightComponent={<Icon color="gray2" name="eyeOn" />}
-        boxProps={{mb: 's48'}}
-      />
-
-      <TextInput
-        label="Senha"
-        placeholder="Digite sua senha"
-        RightComponent={<Icon color="gray2" name="eyeOn" />}
-        boxProps={{mb: 's48'}}
-      />
-
-      <TextInput
-        label="Teste"
-        placeholder="Digite sua senha"
-        RightComponent={<Icon color="gray2" name="eyeOn" />}
-        boxProps={{mb: 's48'}}
-      />
-
       <Button title="Criar uma conta" />
     </Screen>
   );
