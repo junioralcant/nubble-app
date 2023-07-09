@@ -4,7 +4,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {LoginScreen} from '../screens/auth/LoginScreen/LoginScreen';
 import {SignUpScreen} from '../screens/auth/SignUpScreen/SignUpScreen';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamsList = {
+  LoginScreen: undefined;
+  SignUpScreen: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamsList>();
 
 export function Router() {
   return (
@@ -13,6 +18,7 @@ export function Router() {
         initialRouteName="LoginScreen"
         screenOptions={{
           headerShown: false,
+          fullScreenGestureEnabled: true,
         }}>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />

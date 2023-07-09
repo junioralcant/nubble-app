@@ -1,11 +1,15 @@
 import React from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Screen} from '../../../components/Screen/Screen';
 import {Text} from '../../../components/Text/Text';
 import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {InputPassword} from '../../../components/InputPassword/InputPassWord';
+import {RootStackParamsList} from '../../../routes/Routes';
 
-export function SignUpScreen() {
+type ScreenProps = NativeStackScreenProps<RootStackParamsList, 'SignUpScreen'>;
+
+export function SignUpScreen({}: ScreenProps) {
   return (
     <Screen canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
