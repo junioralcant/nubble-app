@@ -30,13 +30,15 @@ import {ProfileFillIcon} from '../../assets/icons/ProfileFillIcon';
 import {SearchIcon} from '../../assets/icons/SearchIcon';
 import {SettingsIcon} from '../../assets/icons/SettingsIcon';
 import {TrashIcon} from '../../assets/icons/TrashIcon';
+import {CheckRoundIcon} from '../../assets/icons/CheckRoundIcon';
+import {MessageRoundIcon} from '../../assets/icons/MessageRoundIcon';
 
 export type IconBaseTypes = {
   size?: number;
   color?: string;
 };
 
-type IconProps = {
+export type IconProps = {
   name: IconNameTypes;
   color?: ThemeColorsTypes;
   size?: number;
@@ -76,6 +78,7 @@ const iconRegistry = {
   check: CheckIcon,
   comment: CommentIcon,
   chevronRight: ChevronRightIcon,
+  checkRound: CheckRoundIcon,
   eyeOn: EyeOnIcon,
   eyeOff: EyeOffIcon,
   flashOn: FlashOnIcon,
@@ -85,6 +88,7 @@ const iconRegistry = {
   home: HomeIcon,
   homeFill: HomeFillIcon,
   message: MessageIcon,
+  messageRound: MessageRoundIcon,
   newPost: NewPostIcon,
   profile: ProfileIcon,
   profileFill: ProfileFillIcon,

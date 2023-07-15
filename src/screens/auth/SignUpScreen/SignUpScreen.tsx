@@ -9,7 +9,18 @@ import {RootStackParamsList} from '../../../routes/Routes';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamsList, 'SignUpScreen'>;
 
-export function SignUpScreen({}: ScreenProps) {
+export function SignUpScreen({navigation}: ScreenProps) {
+  function submitForm() {
+    navigation.navigate('SuccessScreen', {
+      title: 'Sua conta foi criada com sucesso!',
+      description: 'Agora é só fazer login na nossa plataforma',
+      icon: {
+        name: 'checkRound',
+        color: 'greenSuccess',
+      },
+    });
+  }
+
   return (
     <Screen canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
@@ -34,7 +45,7 @@ export function SignUpScreen({}: ScreenProps) {
         boxProps={{mb: 's48'}}
       />
 
-      <Button title="Criar uma conta" />
+      <Button title="Criar uma conta" onPress={submitForm} />
     </Screen>
   );
 }
