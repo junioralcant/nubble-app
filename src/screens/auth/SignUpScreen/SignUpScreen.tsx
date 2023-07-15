@@ -6,12 +6,14 @@ import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {InputPassword} from '../../../components/InputPassword/InputPassWord';
 import {RootStackParamsList} from '../../../routes/Routes';
+import {useResetNavigationSuccess} from '../../../hooks/use-reset-navigation-success';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamsList, 'SignUpScreen'>;
 
-export function SignUpScreen({navigation}: ScreenProps) {
+export function SignUpScreen({}: ScreenProps) {
+  const {reset} = useResetNavigationSuccess();
   function submitForm() {
-    navigation.navigate('SuccessScreen', {
+    reset({
       title: 'Sua conta foi criada com sucesso!',
       description: 'Agora é só fazer login na nossa plataforma',
       icon: {
