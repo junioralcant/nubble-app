@@ -1,23 +1,21 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {zodResolver} from '@hookform/resolvers/zod';
 import {Text} from '../../../components/Text/Text';
-import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
-import {InputPassword} from '../../../components/InputPassword/InputPassWord';
 import {RootStackParamsList} from '../../../routes/Routes';
-import {Controller, useForm} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {Alert} from 'react-native';
-
-type LoginFormTypes = {
-  email: string;
-  password: string;
-};
+import {LoginSchemaTypes, loginSchema} from './login.schema';
+import {FormInputText} from '../../../components/Form/FormInputText/FormInputText';
+import {FormPasswordInputText} from '../../../components/Form/FormPasswordInputText/FormPasswordInputText';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamsList, 'LoginScreen'>;
 
 export function LoginScreen({navigation}: ScreenProps) {
-  const {control, formState, handleSubmit} = useForm<LoginFormTypes>({
+  const {control, formState, handleSubmit} = useForm<LoginSchemaTypes>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -25,7 +23,7 @@ export function LoginScreen({navigation}: ScreenProps) {
     mode: 'onChange',
   });
 
-  function handleSubmitForm({email, password}: LoginFormTypes) {
+  function handleSubmitForm({email, password}: LoginSchemaTypes) {
     Alert.alert(email, password);
   }
 
@@ -46,48 +44,20 @@ export function LoginScreen({navigation}: ScreenProps) {
         Digite seu e-mail e senha para entrar
       </Text>
 
-      <Controller
+      <FormInputText
         control={control}
         name="email"
-        rules={{
-          required: 'E-mail é obrigatório',
-          pattern: {
-            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'E-mail inválido',
-          },
-        }}
-        render={({field, fieldState}) => (
-          <TextInput
-            label="E-mail"
-            placeholder="Digite seu e-mail"
-            boxProps={{mb: 's20'}}
-            value={field.value}
-            onChangeText={field.onChange}
-            errorMessage={fieldState.error?.message}
-          />
-        )}
+        label="E-mail"
+        placeholder="Digite seu e-mail"
+        boxProps={{mb: 's20'}}
       />
 
-      <Controller
+      <FormPasswordInputText
         control={control}
         name="password"
-        rules={{
-          required: 'Senha obrigatória',
-          minLength: {
-            value: 8,
-            message: 'Senha deve ter no mínimo 8 caracteres',
-          },
-        }}
-        render={({field, fieldState}) => (
-          <InputPassword
-            label="Senha"
-            placeholder="Digite sua senha"
-            boxProps={{mt: 's10'}}
-            value={field.value}
-            onChangeText={field.onChange}
-            errorMessage={fieldState.error?.message}
-          />
-        )}
+        label="Senha"
+        placeholder="Digite sua senha"
+        boxProps={{mt: 's10'}}
       />
 
       <Text
