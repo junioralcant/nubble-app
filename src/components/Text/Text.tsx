@@ -7,7 +7,7 @@ import {ThemeTypes} from '../../theme/theme';
 const SRText = createText<ThemeTypes>();
 type SRTextProps = ComponentProps<typeof SRText>;
 
-type TextProps = {
+export type TextProps = {
   preset?: TextVariants;
   bold?: boolean;
   italic?: boolean;
