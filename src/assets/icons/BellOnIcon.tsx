@@ -1,5 +1,7 @@
 import React from 'react';
+
 import {Svg, Path, Circle} from 'react-native-svg';
+
 import {IconBaseTypes} from '../../components/Icon/Icon';
 
 export function BellOnIcon({size = 20, color = 'black'}: IconBaseTypes) {

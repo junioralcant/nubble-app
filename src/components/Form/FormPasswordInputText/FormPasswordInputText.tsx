@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Controller,
   FieldValues,
@@ -6,6 +7,7 @@ import {
   UseControllerProps,
   Path,
 } from 'react-hook-form';
+
 import {InputPassword, InputPasswordProps} from '@components';
 
 type FormPasswordInputTextProps<FormTypes extends FieldValues> =

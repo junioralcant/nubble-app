@@ -3,6 +3,7 @@ import {
   ActivityIndicator as RNActivityIndicator,
   ActivityIndicatorProps as RNActivityIndicatorProps,
 } from 'react-native';
+
 import {useAppTheme} from '@hooks';
 import {ThemeColorsTypes} from '@theme';
 

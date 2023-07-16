@@ -1,6 +1,7 @@
-import {createText} from '@shopify/restyle';
 import React, {ComponentProps} from 'react';
 import {TextStyle} from 'react-native';
+
+import {createText} from '@shopify/restyle';
 
 import {ThemeTypes} from '@theme';
 
