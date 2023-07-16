@@ -7,6 +7,7 @@ import {Button} from '../../../components/Button/Button';
 import {RootStackParamsList} from '../../../routes/Routes';
 import {useResetNavigationSuccess} from '../../../hooks/use-reset-navigation-success';
 import {FormInputText} from '../../../components/Form/FormInputText/FormInputText';
+import {FormPasswordInputText} from '../../../components/Form/FormPasswordInputText/FormPasswordInputText';
 
 type SignUpFormTypes = {
   username: string;
@@ -62,6 +63,7 @@ export function SignUpScreen({}: ScreenProps) {
         control={control}
         name="fullName"
         rules={{required: 'O nome é obrigatório'}}
+        autoCapitalize="words"
         label="Nome completo"
         placeholder="Digite seu nome"
         boxProps={{mb: 's20'}}
@@ -82,7 +84,7 @@ export function SignUpScreen({}: ScreenProps) {
         boxProps={{mb: 's20'}}
       />
 
-      <FormInputText
+      <FormPasswordInputText
         control={control}
         name="password"
         rules={{
