@@ -6,7 +6,7 @@ import {
   UseControllerProps,
   Path,
 } from 'react-hook-form';
-import {TextInput, TextInputProps} from '../../TextInput/TextInput';
+import {TextInput, TextInputProps} from '@components';
 
 type FormInputTextProps<FormTypes extends FieldValues> = TextInputProps &
   UseControllerProps<FormTypes>;
