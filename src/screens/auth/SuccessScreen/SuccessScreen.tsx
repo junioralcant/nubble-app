@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AppScreenProps} from '@routes';
+import {AuthScreenProps} from '@routes';
 
 import {Button} from '../../../components/Button/Button';
 import {Icon} from '../../../components/Icon/Icon';
@@ -10,7 +10,7 @@ import {Text} from '../../../components/Text/Text';
 export function SuccessScreen({
   route,
   navigation,
-}: AppScreenProps<'SuccessScreen'>) {
+}: AuthScreenProps<'SuccessScreen'>) {
   function goBackToBegin() {
     navigation.goBack();
   }

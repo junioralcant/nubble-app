@@ -4,7 +4,7 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
 import {useResetNavigationSuccess} from '@hooks';
-import {AppScreenProps} from '@routes';
+import {AuthScreenProps} from '@routes';
 
 import {
   Button,
@@ -16,7 +16,7 @@ import {
 
 import {SignUpSchemaTypes, signUpSchema} from './sign-up.schema';
 
-export function SignUpScreen({}: AppScreenProps<'SignUpScreen'>) {
+export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
   const {reset} = useResetNavigationSuccess();
 
   const {control, formState, handleSubmit} = useForm<SignUpSchemaTypes>({

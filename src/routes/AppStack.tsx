@@ -1,12 +1,13 @@
 import React from 'react';
 
+import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {AppTapNavigate} from '@routes';
+import {AppTabBottomTabNavigatorParamsList, AppTapNavigate} from '@routes';
 import {SettingsScreen} from '@screens';
 
 export type AppStackParamsList = {
-  AppTabNavigate: undefined;
+  AppTabNavigate: NavigatorScreenParams<AppTabBottomTabNavigatorParamsList>;
   SettingsScreen: undefined;
 };
 

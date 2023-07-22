@@ -4,13 +4,13 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
 import {useResetNavigationSuccess} from '@hooks';
-import {AppScreenProps} from '@routes';
+import {AuthScreenProps} from '@routes';
 
 import {Button, FormInputText, Screen, Text} from '@components';
 
 import {forgotPasswordSchema} from './forgot-password.schema';
 
-export function ForgotPasswordScreen({}: AppScreenProps<'ForgotPasswordScreen'>) {
+export function ForgotPasswordScreen({}: AuthScreenProps<'ForgotPasswordScreen'>) {
   const {control} = useForm({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
