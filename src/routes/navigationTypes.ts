@@ -1,7 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {AppStackParamsList} from './AppStack';
-import {AuthStackParamsList} from './AuthStack';
+import {AppStackParamsList, AuthStackParamsList} from '@routes';
 
 type AllStackParamsList = AuthStackParamsList & AppStackParamsList;
 
