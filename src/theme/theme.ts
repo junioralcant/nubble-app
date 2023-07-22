@@ -1,3 +1,5 @@
+import {ViewStyle} from 'react-native';
+
 import {createTheme} from '@shopify/restyle';
 
 export const palette = {
@@ -59,6 +61,14 @@ export const theme = createTheme({
     defaults: {},
   },
 });
+
+export const $shadowProps: ViewStyle = {
+  elevation: 10,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowRadius: 12,
+  shadowOffset: {width: 0, height: 0},
+};
 
 export type ThemeTypes = typeof theme;
 export type ThemeColorsTypes = keyof ThemeTypes['colors'];

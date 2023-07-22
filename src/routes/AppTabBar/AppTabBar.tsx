@@ -2,13 +2,24 @@ import React from 'react';
 
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 
+import {useAppSafeArea} from '@hooks';
 import {AppTabBottomTabNavigatorParamsList, mapScreenToProps} from '@routes';
+import {$shadowProps} from '@theme';
 
-import {Box, Icon, Text, TouchableOpacityBox} from '@components';
+import {
+  Box,
+  BoxProps,
+  Icon,
+  Text,
+  TextProps,
+  TouchableOpacityBox,
+  TouchableOpacityBoxProps,
+} from '@components';
 
 export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
+  const {bottom} = useAppSafeArea();
   return (
-    <Box flexDirection="row">
+    <Box {...$boxWrapper} style={[{paddingBottom: bottom}, $shadowProps]}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
 
@@ -27,7 +38,11 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate({name: route.name, merge: true});
+            navigation.navigate({
+              name: route.name,
+              params: route.params,
+              merge: true,
+            });
           }
         };
 
@@ -40,9 +55,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
 
         return (
           <TouchableOpacityBox
-            activeOpacity={1}
-            alignItems="center"
-            accessibilityRole="button"
+            {...$itemWrapper}
             accessibilityState={isFocused ? {selected: true} : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
@@ -53,10 +66,7 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
               color={isFocused ? 'primary' : 'backgroundContrast'}
               name={isFocused ? tabItem.icon.focused : tabItem.icon.unfocused}
             />
-            <Text
-              semiBold
-              preset="paragraphCaption"
-              style={{color: isFocused ? '#673ab7' : '#222'}}>
+            <Text {...$label} style={{color: isFocused ? '#673ab7' : '#222'}}>
               {tabItem.label}
             </Text>
           </TouchableOpacityBox>
@@ -65,3 +75,21 @@ export function AppTabBar({state, descriptors, navigation}: BottomTabBarProps) {
     </Box>
   );
 }
+
+const $label: TextProps = {
+  mt: 's4',
+  semiBold: true,
+  preset: 'paragraphCaption',
+};
+
+const $itemWrapper: TouchableOpacityBoxProps = {
+  activeOpacity: 1,
+  alignItems: 'center',
+  accessibilityRole: 'button',
+};
+
+const $boxWrapper: BoxProps = {
+  padding: 's12',
+  backgroundColor: 'background',
+  flexDirection: 'row',
+};
