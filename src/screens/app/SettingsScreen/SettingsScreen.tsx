@@ -1,16 +1,10 @@
 import React from 'react';
 
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AppStackParamsList} from 'src/routes/AppStack';
+import {AppScreenProps} from '@routes';
 
 import {Screen, Text} from '@components';
 
-type SettingsScreenProps = NativeStackScreenProps<
-  AppStackParamsList,
-  'SettingsScreen'
->;
-
-export function SettingsScreen({}: SettingsScreenProps) {
+export function SettingsScreen({}: AppScreenProps<'SettingsScreen'>) {
   return (
     <Screen canGoBack>
       <Text>Settings Screen</Text>
