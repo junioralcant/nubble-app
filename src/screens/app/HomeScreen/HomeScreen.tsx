@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {Dimensions, FlatList, Image, ListRenderItemInfo} from 'react-native';
 
 import {IPostList, PostModel} from '@domain';
 
 import {AppTabScreenProps} from '@routes';
 
-import {Screen, Text} from '@components';
+import {Box, Screen, Text} from '@components';
 
 export type HomeProps = {
   postListService: IPostList;
@@ -17,13 +18,32 @@ export function HomeScreen({postListService}: HomeProps) {
     postListService.getList().then(list => setPosts(list));
   }, [postListService]);
 
-  console.log(posts);
+  function renderItem({item}: ListRenderItemInfo<PostModel>) {
+    return (
+      <Box mb="s24">
+        <Box flexDirection="row">
+          <Image
+            source={{uri: item.author.profileURL}}
+            style={{width: 32, height: 32}}
+          />
+          <Text>{item.author.userName}</Text>
+        </Box>
+        <Image
+          source={{uri: item.imageURL}}
+          resizeMode="cover"
+          style={{width: Dimensions.get('screen').width, height: 300}}
+        />
+      </Box>
+    );
+  }
 
   return (
     <Screen>
-      {posts.map(post => (
-        <Text key={post.id}>{post.text}</Text>
-      ))}
+      <FlatList
+        data={posts}
+        keyExtractor={post => post.id}
+        renderItem={renderItem}
+      />
     </Screen>
   );
 }
