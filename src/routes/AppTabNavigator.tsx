@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {postListService} from '@domain';
 import {
   BottomTabBarProps,
   createBottomTabNavigator,
@@ -26,13 +27,16 @@ export function AppTapNavigate() {
   function renderTabProps(props: BottomTabBarProps) {
     return <AppTabBar {...props} />;
   }
+
   return (
     <Tab.Navigator
       tabBar={renderTabProps}
       screenOptions={{
         headerShown: false,
       }}>
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="HomeScreen">
+        {props => <HomeScreen postListService={postListService} {...props} />}
+      </Tab.Screen>
       <Tab.Screen name="NewPostScreen" component={NewPostScreen} />
       <Tab.Screen name="FavoriteScreen" component={FavoriteScreen} />
       <Tab.Screen name="MyProfileScreen" component={MyProfileScreen} />

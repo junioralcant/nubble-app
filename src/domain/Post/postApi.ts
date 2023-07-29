@@ -1,9 +1,10 @@
 import {IPostList} from './post.contracts';
-import {PostModel} from './Post.model';
-import {postListMock} from './PostListMock';
+import {PostModel} from './post.model';
+import {postListMock} from './postListMock';
 
 export class PostListApi implements IPostList {
   async getList(): Promise<PostModel[]> {
-    return postListMock;
+    await new Promise(resolve => setTimeout(() => resolve(''), 1000));
+    return postListMock();
   }
 }

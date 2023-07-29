@@ -1,4 +1,4 @@
-import {PostModel} from './Post.model';
+import {PostModel} from './post.model';
 
 export interface IPostList {
   getList(): Promise<PostModel[]>;

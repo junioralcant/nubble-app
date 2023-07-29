@@ -1,5 +1,6 @@
 import {IPostList} from './post.contracts';
-import {PostModel} from './Post.model';
+import {PostModel} from './post.model';
+import {PostListApi} from './postApi';
 
 export class PostListService implements IPostList {
   constructor(private readonly postApi: IPostList) {}
@@ -9,3 +10,6 @@ export class PostListService implements IPostList {
     return postList;
   }
 }
+
+const postListApi = new PostListApi();
+export const postListService = new PostListService(postListApi);
