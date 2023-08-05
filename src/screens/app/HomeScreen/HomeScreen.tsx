@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, ListRenderItemInfo} from 'react-native';
+import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 
 import {IPostList, PostModel} from '@domain';
 
@@ -23,12 +23,19 @@ export function HomeScreen({postListService}: HomeProps) {
   }
 
   return (
-    <Screen>
+    <Screen style={$screen}>
       <FlatList
         data={posts}
         keyExtractor={post => post.id}
         renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
       />
     </Screen>
   );
 }
+
+const $screen: StyleProp<ViewStyle> = {
+  paddingTop: 0,
+  paddingBottom: 0,
+  paddingHorizontal: 0,
+};

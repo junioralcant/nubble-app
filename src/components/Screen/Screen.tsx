@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useAppSafeArea, useAppTheme} from '@hooks';
 
-import {TouchableOpacityBox, Box, Icon, Text} from '@components';
+import {TouchableOpacityBox, Box, Icon, Text, BoxProps} from '@components';
 
 import {ScrollViewContainer, ViewContainer} from './components/ScreenContainer';
 
@@ -13,12 +13,14 @@ type ScreenProps = {
   children: React.ReactNode;
   canGoBack?: boolean;
   scrollable?: boolean;
-};
+} & BoxProps;
 
 export function Screen({
   children,
   canGoBack = false,
   scrollable = false,
+  style,
+  ...boxProps
 }: ScreenProps) {
   const {top, bottom} = useAppSafeArea();
   const {colors} = useAppTheme();
@@ -33,7 +35,8 @@ export function Screen({
       <Container backgroundColor={colors.background}>
         <Box
           paddingHorizontal="s24"
-          style={{paddingTop: top, paddingBottom: bottom}}>
+          style={[{paddingTop: top, paddingBottom: bottom}, style]}
+          {...boxProps}>
           {canGoBack && (
             <TouchableOpacityBox
               flexDirection="row"
