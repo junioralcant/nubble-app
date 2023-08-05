@@ -7,6 +7,8 @@ import {AppTabScreenProps} from '@routes';
 
 import {PostItem, Screen} from '@components';
 
+import {HomeHeader} from './components/HomeHeader';
+
 export type HomeProps = {
   postListService: IPostList;
 } & AppTabScreenProps<'HomeScreen'>;
@@ -29,6 +31,7 @@ export function HomeScreen({postListService}: HomeProps) {
         keyExtractor={post => post.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<HomeHeader />}
       />
     </Screen>
   );
