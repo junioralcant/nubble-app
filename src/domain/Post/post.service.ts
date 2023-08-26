@@ -7,6 +7,7 @@ export class PostListService implements IPostList {
   constructor(private readonly postApi: IPostListAPI) {}
 
   async getList(): Promise<PostModel[]> {
+    await new Promise(resolve => setTimeout(() => resolve(''), 2000));
     const postList = await this.postApi.getList();
     return postList.data.map(postAdapter.toPost);
   }
