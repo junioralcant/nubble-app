@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 
-import {IPostList, PostModel} from '@domain';
+import {IPostList, PostModel, usePostList} from '@domain';
 
 import {AppTabScreenProps} from '@routes';
 
@@ -15,27 +15,7 @@ export type HomeProps = {
 } & AppTabScreenProps<'HomeScreen'>;
 
 export function HomeScreen({postListService}: HomeProps) {
-  const [posts, setPosts] = useState<PostModel[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<boolean | null>();
-
-  async function fetchPosts() {
-    try {
-      setLoading(true);
-      const postsList = await postListService.getList();
-      setPosts(postsList);
-    } catch (error: any) {
-      console.log('Error: ', error);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const {error, loading, fetchPosts, posts} = usePostList({postListService});
 
   function renderItem({item}: ListRenderItemInfo<PostModel>) {
     return <PostItem post={item} />;
