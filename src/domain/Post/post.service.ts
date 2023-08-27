@@ -1,14 +1,16 @@
 import {postAdapter} from './post.adapter';
-import {IPostList, IPostListAPI} from './post.contracts';
+import {IPostList, IPostListAPI, PageParams} from './post.contracts';
 import {PostModel} from './post.model';
 import {PostListApi} from './postApi';
 
 export class PostListService implements IPostList {
   constructor(private readonly postApi: IPostListAPI) {}
 
-  async getList(): Promise<PostModel[]> {
-    await new Promise(resolve => setTimeout(() => resolve(''), 2000));
-    const postList = await this.postApi.getList();
+  async getList(params: PageParams): Promise<PostModel[]> {
+    const postList = await this.postApi.getList({
+      page: params.page,
+      perPage: 10,
+    });
     return postList.data.map(postAdapter.toPost);
   }
 }
