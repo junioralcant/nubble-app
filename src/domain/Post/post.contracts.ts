@@ -1,10 +1,11 @@
 import {PageAPI} from '@api';
+import {Page} from '@types';
 
 import {PostModel} from './post.model';
 import {PostAPI} from './postApi.types';
 
 export interface IPostList {
-  getList(params?: PageParams): Promise<PostModel[]>;
+  getList(params?: PageParams): Promise<Page<PostModel>>;
 }
 
 export interface IPostListAPI {

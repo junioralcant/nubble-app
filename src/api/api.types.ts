@@ -15,6 +15,6 @@ export type MetaDataPageAPI = {
  * @template Data Page data type
  */
 export type PageAPI<Data> = {
-  mata: MetaDataPageAPI;
+  meta: MetaDataPageAPI;
   data: Data[];
 };
