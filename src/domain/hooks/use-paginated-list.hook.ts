@@ -6,18 +6,18 @@ import {Page} from '@types';
 export function usePaginateList<Data>(
   getList: (params?: PageParams | undefined) => Promise<Page<Data>>,
 ) {
-  const [posts, setPosts] = useState<Data[]>([]);
+  const [data, setData] = useState<Data[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<boolean | null>();
   const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  async function fetchInitialPosts() {
+  async function fetchInitialData() {
     try {
       setLoading(true);
       const {data, meta} = await getList({page});
 
-      setPosts(data);
+      setData(data);
       if (meta.hasNextPage) {
         setPage(1);
       } else {
@@ -31,11 +31,11 @@ export function usePaginateList<Data>(
     }
   }
 
-  async function fetchNextPagePosts() {
+  async function fetchNextPageData() {
     try {
       setLoading(true);
       const {data, meta} = await getList({page});
-      setPosts(postsListOld => [...postsListOld, ...data]);
+      setData(dataListOld => [...dataListOld, ...data]);
 
       if (meta.hasNextPage) {
         setPage(pageOld => pageOld + 1);
@@ -53,20 +53,20 @@ export function usePaginateList<Data>(
 
   function fetchNextPage() {
     if (!loading || !hasNextPage) {
-      fetchNextPagePosts();
+      fetchNextPageData();
     }
   }
 
   useEffect(() => {
-    fetchInitialPosts();
+    fetchInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
-    posts,
+    data,
     error,
     loading,
-    fetchInitialPosts,
+    fetchInitialData,
     fetchNextPage,
   };
 }

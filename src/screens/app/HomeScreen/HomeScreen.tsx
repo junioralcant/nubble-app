@@ -22,7 +22,7 @@ export type HomeProps = {
 } & AppTabScreenProps<'HomeScreen'>;
 
 export function HomeScreen({postListService}: HomeProps) {
-  const {error, loading, fetchInitialPosts, posts, fetchNextPage} =
+  const {error, loading, fetchInitialData, data, fetchNextPage} =
     usePostList(postListService);
 
   const flatListRef = useRef<FlatList<PostModel>>(null);
@@ -36,8 +36,8 @@ export function HomeScreen({postListService}: HomeProps) {
     <Screen style={$screen}>
       <FlatList
         ref={flatListRef}
-        contentContainerStyle={{flex: posts.length ? 0 : 1}}
-        data={posts}
+        contentContainerStyle={{flex: data.length ? 0 : 1}}
+        data={data}
         keyExtractor={post => post.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
@@ -45,14 +45,14 @@ export function HomeScreen({postListService}: HomeProps) {
         onEndReachedThreshold={0.1}
         refreshing={loading}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={fetchInitialPosts} />
+          <RefreshControl refreshing={loading} onRefresh={fetchInitialData} />
         }
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
           <HomeEmpty
             loading={loading}
             error={error}
-            refetch={fetchInitialPosts}
+            refetch={fetchInitialData}
           />
         }
       />
