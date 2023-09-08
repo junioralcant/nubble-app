@@ -22,5 +22,7 @@ export class PostListService implements IPostList {
   }
 }
 
-const postListApi = new PostListApi();
-export const postListService = new PostListService(postListApi);
+export function postListServiceFactory(): IPostList {
+  const postListApi = new PostListApi();
+  return new PostListService(postListApi);
+}

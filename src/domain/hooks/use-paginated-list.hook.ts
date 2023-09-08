@@ -1,6 +1,11 @@
 import {useEffect, useState} from 'react';
 
-export function usePaginateList<Interface, Data>(service: Interface | any) {
+import {PageParams} from '@domain';
+import {Page} from '@types';
+
+export function usePaginateList<Data>(
+  getList: (params?: PageParams | undefined) => Promise<Page<Data>>,
+) {
   const [posts, setPosts] = useState<Data[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<boolean | null>();
@@ -10,7 +15,7 @@ export function usePaginateList<Interface, Data>(service: Interface | any) {
   async function fetchInitialPosts() {
     try {
       setLoading(true);
-      const {data, meta} = await service.getList({page});
+      const {data, meta} = await getList({page});
 
       setPosts(data);
       if (meta.hasNextPage) {
@@ -29,7 +34,7 @@ export function usePaginateList<Interface, Data>(service: Interface | any) {
   async function fetchNextPagePosts() {
     try {
       setLoading(true);
-      const {data, meta} = await service.getList({page});
+      const {data, meta} = await getList({page});
       setPosts(postsListOld => [...postsListOld, ...data]);
 
       if (meta.hasNextPage) {
