@@ -1,8 +1,7 @@
-import {usePaginateList, PostModel, PageParams} from '@domain';
-import {Page} from '@types';
+import {usePaginateList, PostModel, IPostList} from '@domain';
 
-export function usePostList(
-  getList: (params?: PageParams | undefined) => Promise<Page<PostModel>>,
-) {
-  return usePaginateList<PostModel>(getList);
+export function usePostList(postListService: IPostList) {
+  return usePaginateList<PostModel>(async params =>
+    postListService.getList(params),
+  );
 }

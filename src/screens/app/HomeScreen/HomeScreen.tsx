@@ -22,9 +22,8 @@ export type HomeProps = {
 } & AppTabScreenProps<'HomeScreen'>;
 
 export function HomeScreen({postListService}: HomeProps) {
-  const {error, loading, fetchInitialPosts, posts, fetchNextPage} = usePostList(
-    async params => postListService.getList(params),
-  );
+  const {error, loading, fetchInitialPosts, posts, fetchNextPage} =
+    usePostList(postListService);
 
   const flatListRef = useRef<FlatList<PostModel>>(null);
   useScrollToTop(flatListRef);
