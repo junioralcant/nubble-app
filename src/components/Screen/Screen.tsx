@@ -13,6 +13,7 @@ type ScreenProps = {
   children: React.ReactNode;
   canGoBack?: boolean;
   scrollable?: boolean;
+  title?: string;
 } & BoxProps;
 
 export function Screen({
