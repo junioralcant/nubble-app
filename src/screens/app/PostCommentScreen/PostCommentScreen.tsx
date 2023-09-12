@@ -10,7 +10,7 @@ export function PostCommentScreen({
   console.log(route);
 
   return (
-    <Screen canGoBack>
+    <Screen canGoBack title="Comentários">
       <Box>
         <Text>Telas de comentários</Text>
       </Box>
