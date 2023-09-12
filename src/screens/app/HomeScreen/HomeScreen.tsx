@@ -38,7 +38,7 @@ export function HomeScreen({postListService}: HomeProps) {
         ref={flatListRef}
         contentContainerStyle={{flex: data.length ? 0 : 1}}
         data={data}
-        keyExtractor={post => post.id}
+        keyExtractor={post => post.id.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         onEndReached={fetchNextPage}

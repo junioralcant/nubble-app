@@ -1,5 +1,5 @@
 export type PostModel = {
-  id: string;
+  id: number;
   text: string;
   author: {
     profileURL: string;

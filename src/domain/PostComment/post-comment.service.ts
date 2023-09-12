@@ -1,10 +1,9 @@
 import {apiAdapter} from '@api';
 
-import {
-  IPostComment,
-  IPostCommentAPI,
-  PageParams,
-} from './post-comment.contracts';
+import {PageParams} from '../Post/post.contracts';
+
+import {PostCommentAPI} from './post-comment.api';
+import {IPostComment, IPostCommentAPI} from './post-comment.contracts';
 import {postCommentAdapter} from './post-commet.adapter';
 
 export class PostCommentService implements IPostComment {
@@ -26,4 +25,9 @@ export class PostCommentService implements IPostComment {
       meta: apiAdapter.toMetaDataPage(postComment.meta),
     };
   }
+}
+
+export function postCommentServiceFactory(): IPostComment {
+  const postCommentAPI = new PostCommentAPI();
+  return new PostCommentService(postCommentAPI);
 }

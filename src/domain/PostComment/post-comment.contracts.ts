@@ -1,6 +1,8 @@
 import {PageAPI} from '@api';
 import {Page} from '@types';
 
+import {PageParams} from '../Post/post.contracts';
+
 import {PostCommentAPI} from './post-comment-api.types';
 import {PostCommentModel} from './post-comment.model';
 
@@ -25,8 +27,3 @@ export interface IPostCommentAPI {
 export namespace IPostCommentAPI {
   export type ResponseAPI = PageAPI<PostCommentAPI>;
 }
-
-export type PageParams = {
-  page?: number;
-  perPage?: number;
-};

@@ -1,6 +1,8 @@
 import {api} from '@api';
 
-import {IPostCommentAPI, PageParams} from './post-comment.contracts';
+import {PageParams} from '../Post/post.contracts';
+
+import {IPostCommentAPI} from './post-comment.contracts';
 
 export class PostCommentAPI implements IPostCommentAPI {
   async getList(
