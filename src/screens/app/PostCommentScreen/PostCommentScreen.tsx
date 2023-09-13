@@ -1,10 +1,13 @@
 import React from 'react';
+import {FlatList, ListRenderItemInfo} from 'react-native';
 
-import {IPostComment} from '@domain';
+import {IPostComment, PostCommentModel, usePostCommentList} from '@domain';
 
 import {AppScreenProps} from '@routes';
 
-import {Box, Screen, Text} from '@components';
+import {Screen} from '@components';
+
+import {PostCommentItem} from './components/PostCommentItem/PostCommentItem';
 
 type PostCommentScreenProps = {
   postCommentListService: IPostComment;
@@ -16,15 +19,15 @@ export function PostCommentScreen({
 }: PostCommentScreenProps) {
   const postId = route.params.postId;
 
-  postCommentListService
-    .getList(postId)
-    .then(comments => console.log(comments));
+  const {data} = usePostCommentList(postCommentListService, postId);
+
+  function renderItem({item}: ListRenderItemInfo<PostCommentModel>) {
+    return <PostCommentItem postComment={item} />;
+  }
 
   return (
     <Screen canGoBack title="Comentários">
-      <Box>
-        <Text>Telas de comentários</Text>
-      </Box>
+      <FlatList data={data} renderItem={renderItem} />
     </Screen>
   );
 }

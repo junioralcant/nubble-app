@@ -6,3 +6,5 @@ export * from './Post/useCases/use-post-list';
 export * from './hooks/use-paginated-list.hook';
 export * from './PostComment/post-comment.contracts';
 export * from './PostComment/post-comment.service';
+export * from './PostComment/post-comment.model';
+export * from './PostComment/useCases/use-post-comment-list.hook';
