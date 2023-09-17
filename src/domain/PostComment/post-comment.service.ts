@@ -1,4 +1,5 @@
 import {apiAdapter} from '@api';
+import {Page} from '@types';
 
 import {PageParams} from '../Post/post.contracts';
 
@@ -10,12 +11,12 @@ export class PostCommentService implements IPostComment {
   constructor(private readonly postCommentAPI: IPostCommentAPI) {}
 
   async getList(
-    post_id: number,
+    postId: number,
     pageParams?: PageParams | undefined,
-  ): Promise<IPostComment.Model> {
+  ): Promise<Page<IPostComment.Model>> {
     const PER_PAGE = 10;
 
-    const postComment = await this.postCommentAPI.getList(post_id, {
+    const postComment = await this.postCommentAPI.getList(postId, {
       page: pageParams?.page,
       perPage: PER_PAGE,
     });
@@ -24,6 +25,12 @@ export class PostCommentService implements IPostComment {
       data: postComment.data.map(postCommentAdapter.toPostComment),
       meta: apiAdapter.toMetaDataPage(postComment.meta),
     };
+  }
+
+  async create(postId: number, message: string): Promise<IPostComment.Model> {
+    const postComment = await this.postCommentAPI.create(postId, message);
+
+    return postCommentAdapter.toPostComment(postComment);
   }
 }
 

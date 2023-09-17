@@ -21,4 +21,16 @@ export class PostCommentAPI implements IPostCommentAPI {
 
     return data;
   }
+
+  async create(
+    post_id: number,
+    message: string,
+  ): Promise<IPostCommentAPI.Model> {
+    const {data} = await api.post<IPostCommentAPI.Model>('/user/post_comment', {
+      post_id,
+      message,
+    });
+
+    return data;
+  }
 }

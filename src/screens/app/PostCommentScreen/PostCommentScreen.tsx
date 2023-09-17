@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 
-import {IPostComment, PostCommentModel, usePostCommentList} from '@domain';
+import {
+  IPostComment,
+  PostCommentModel,
+  usePostCommentCreate,
+  usePostCommentList,
+} from '@domain';
 
 import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
 
-import {Box, Screen, TextInputMessage} from '@components';
+import {Box, Screen} from '@components';
 
 import {PostCommentBottom} from './components/PostCommentBottom/PostCommentBottom';
+import {PostCommentInputTextMessage} from './components/PostCommentInputTextMessage/PostCommentInputTextMessage';
 import {PostCommentItem} from './components/PostCommentItem/PostCommentItem';
 
 type PostCommentScreenProps = {
@@ -26,8 +32,9 @@ export function PostCommentScreen({
     postId,
   );
 
+  const {createComment} = usePostCommentCreate(postCommentListService, postId);
+
   const {bottom} = useAppSafeArea();
-  const [message, setMessage] = useState('');
 
   function renderItem({item}: ListRenderItemInfo<PostCommentModel>) {
     return <PostCommentItem postComment={item} />;
@@ -49,12 +56,7 @@ export function PostCommentScreen({
           }
         />
 
-        <TextInputMessage
-          placeholder="Adicione um comentário"
-          value={message}
-          onChangeText={setMessage}
-          onPressSend={() => console.log()}
-        />
+        <PostCommentInputTextMessage createComment={createComment} />
       </Box>
     </Screen>
   );
