@@ -1,5 +1,4 @@
-import {PageParams} from '@domain';
-import {usePaginateList} from 'src/domain/hooks/use-paginated-list.hook';
+import {PageParams, usePaginateList} from '@domain';
 
 import {IPostComment} from '../post-comment.contracts';
 

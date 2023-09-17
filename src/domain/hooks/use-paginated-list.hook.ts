@@ -68,5 +68,6 @@ export function usePaginateList<Data>(
     loading,
     fetchInitialData,
     fetchNextPage,
+    hasNextPage,
   };
 }
