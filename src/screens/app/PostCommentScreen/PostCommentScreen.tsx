@@ -27,12 +27,12 @@ export function PostCommentScreen({
 }: PostCommentScreenProps) {
   const postId = route.params.postId;
 
-  const {data, fetchNextPage, hasNextPage} = usePostCommentList(
-    postCommentListService,
-    postId,
-  );
+  const {data, fetchNextPage, hasNextPage, fetchInitialData} =
+    usePostCommentList(postCommentListService, postId);
 
-  const {createComment} = usePostCommentCreate(postCommentListService, postId);
+  const {createComment} = usePostCommentCreate(postCommentListService, postId, {
+    onSuccess: fetchInitialData,
+  });
 
   const {bottom} = useAppSafeArea();
 
@@ -56,7 +56,10 @@ export function PostCommentScreen({
           }
         />
 
-        <PostCommentInputTextMessage createComment={createComment} />
+        <PostCommentInputTextMessage
+          createComment={createComment}
+          onAddComment={fetchInitialData}
+        />
       </Box>
     </Screen>
   );

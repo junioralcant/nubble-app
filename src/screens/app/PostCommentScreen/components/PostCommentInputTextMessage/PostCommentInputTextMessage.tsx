@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
 import {Keyboard} from 'react-native';
 
-import {PostCommentModel} from '@domain';
-
 import {TextInputMessage} from '@components';
 
 type Props = {
-  createComment: (message: string) => Promise<PostCommentModel> | undefined;
+  createComment: (message: string) => Promise<void>;
+  onAddComment: () => void;
 };
 
-export function PostCommentInputTextMessage({createComment}: Props) {
+export function PostCommentInputTextMessage({
+  createComment,
+  onAddComment,
+}: Props) {
   const [message, setMessage] = useState('');
 
-  function onPressSend() {
-    createComment(message);
+  async function onPressSend() {
+    await createComment(message);
+    onAddComment();
     setMessage('');
     Keyboard.dismiss();
   }
