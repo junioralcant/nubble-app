@@ -32,6 +32,11 @@ export class PostCommentService implements IPostComment {
 
     return postCommentAdapter.toPostComment(postComment);
   }
+
+  async remove(postCommentId: number): Promise<IPostComment.Message> {
+    const response = await this.postCommentAPI.remove(postCommentId);
+    return response;
+  }
 }
 
 export function postCommentServiceFactory(): IPostComment {
