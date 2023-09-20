@@ -1,4 +1,5 @@
-import {PageParams, usePaginateList} from '@domain';
+import {PageParams} from '@domain';
+import {usePaginateList} from '@infra';
 
 import {IPostComment} from '../post-comment.contracts';
 
