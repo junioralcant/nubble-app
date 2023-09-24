@@ -18,8 +18,10 @@ export function PostBottom({author, text, commentCount, id}: PostBottomProps) {
   function navigateToPostCommentScreen() {
     navigate.navigate('PostCommentScreen', {
       postId: id,
+      postAuthorId: author.id,
     });
   }
+
   return (
     <Box mt="s16">
       <Text preset="paragraphMedium" bold>

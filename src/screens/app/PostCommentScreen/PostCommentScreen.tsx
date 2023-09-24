@@ -7,6 +7,7 @@ import {
   usePostCommentCreate,
   usePostCommentList,
   usePostCommentRemove,
+  useUser,
 } from '@domain';
 
 import {useAppSafeArea} from '@hooks';
@@ -26,7 +27,9 @@ export function PostCommentScreen({
   postCommentListService,
   route,
 }: PostCommentScreenProps) {
+  const postAuthorId = route.params.postAuthorId;
   const postId = route.params.postId;
+  const user = useUser();
 
   const {data, fetchNextPage, hasNextPage, fetchInitialData} =
     usePostCommentList(postCommentListService, postId);
@@ -35,12 +38,24 @@ export function PostCommentScreen({
     onSuccess: fetchInitialData,
   });
 
-  const {mutate} = usePostCommentRemove(postCommentListService);
+  const {mutate} = usePostCommentRemove(postCommentListService, {
+    onSuccess: fetchInitialData,
+  });
 
   const {bottom} = useAppSafeArea();
 
   function renderItem({item}: ListRenderItemInfo<PostCommentModel>) {
-    return <PostCommentItem postComment={item} removeComment={mutate} />;
+    return (
+      <PostCommentItem
+        postComment={item}
+        onRemoveComment={mutate}
+        isAllowToDelete={postCommentListService.isAllowToDelete(
+          item,
+          user.id,
+          postAuthorId,
+        )}
+      />
+    );
   }
 
   return (

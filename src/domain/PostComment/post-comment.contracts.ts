@@ -13,6 +13,11 @@ export interface IPostComment {
   ): Promise<Page<IPostComment.Model>>;
   create(postId: number, message: string): Promise<IPostComment.Model>;
   remove(postCommentId: number): Promise<IPostComment.Message>;
+  isAllowToDelete(
+    postComment: IPostComment.Model,
+    userId: number,
+    postAuthorId: number,
+  ): boolean;
 }
 
 export namespace IPostComment {

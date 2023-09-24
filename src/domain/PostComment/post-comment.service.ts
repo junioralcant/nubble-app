@@ -5,6 +5,7 @@ import {PageParams} from '../Post/post.contracts';
 
 import {PostCommentAPI} from './post-comment.api';
 import {IPostComment, IPostCommentAPI} from './post-comment.contracts';
+import {PostCommentModel} from './post-comment.model';
 import {postCommentAdapter} from './post-commet.adapter';
 
 export class PostCommentService implements IPostComment {
@@ -36,6 +37,22 @@ export class PostCommentService implements IPostComment {
   async remove(postCommentId: number): Promise<IPostComment.Message> {
     const response = await this.postCommentAPI.remove(postCommentId);
     return response;
+  }
+
+  isAllowToDelete(
+    postComment: PostCommentModel,
+    userId: number,
+    postAuthorId: number,
+  ): boolean {
+    if (postComment.author.id === userId) {
+      return true;
+    }
+
+    if (postAuthorId === userId) {
+      return true;
+    }
+
+    return false;
   }
 }
 

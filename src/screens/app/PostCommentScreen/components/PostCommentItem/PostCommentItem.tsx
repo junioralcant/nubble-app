@@ -7,14 +7,20 @@ import {Box, ProfileAvatar, Text} from '@components';
 
 type Props = {
   postComment: PostCommentModel;
-  removeComment: (variable: {postCommentId: number}) => Promise<void>;
+  onRemoveComment: (variable: {postCommentId: number}) => Promise<void>;
+  isAllowToDelete: boolean;
 };
-export function PostCommentItem({postComment, removeComment}: Props) {
+
+export function PostCommentItem({
+  postComment,
+  onRemoveComment,
+  isAllowToDelete,
+}: Props) {
   function confirmRemove() {
     Alert.alert('Deseja excluir o comentário ?', 'pressione confirmar', [
       {
         text: 'Confirmar',
-        onPress: () => removeComment({postCommentId: postComment.id}),
+        onPress: () => onRemoveComment({postCommentId: postComment.id}),
       },
       {
         text: 'Cancelar',
@@ -24,7 +30,7 @@ export function PostCommentItem({postComment, removeComment}: Props) {
   }
 
   return (
-    <Pressable onLongPress={confirmRemove}>
+    <Pressable disabled={!isAllowToDelete} onLongPress={confirmRemove}>
       <Box flexDirection="row" alignItems="center" mb="s16">
         <ProfileAvatar imageURL={postComment.author.profileUrl} />
         <Box ml="s12" flex={1}>
