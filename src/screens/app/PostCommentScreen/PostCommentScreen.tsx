@@ -6,6 +6,7 @@ import {
   PostCommentModel,
   usePostCommentCreate,
   usePostCommentList,
+  usePostCommentRemove,
 } from '@domain';
 
 import {useAppSafeArea} from '@hooks';
@@ -34,10 +35,12 @@ export function PostCommentScreen({
     onSuccess: fetchInitialData,
   });
 
+  const {mutate} = usePostCommentRemove(postCommentListService);
+
   const {bottom} = useAppSafeArea();
 
   function renderItem({item}: ListRenderItemInfo<PostCommentModel>) {
-    return <PostCommentItem postComment={item} />;
+    return <PostCommentItem postComment={item} removeComment={mutate} />;
   }
 
   return (
