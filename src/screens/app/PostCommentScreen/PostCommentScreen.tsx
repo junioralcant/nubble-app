@@ -9,6 +9,7 @@ import {
   usePostCommentRemove,
   useUser,
 } from '@domain';
+import {useToast} from '@services';
 
 import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
@@ -30,6 +31,7 @@ export function PostCommentScreen({
   const postAuthorId = route.params.postAuthorId;
   const postId = route.params.postId;
   const user = useUser();
+  const {showToast} = useToast();
 
   const {data, fetchNextPage, hasNextPage, fetchInitialData} =
     usePostCommentList(postCommentListService, postId);
@@ -39,7 +41,10 @@ export function PostCommentScreen({
   });
 
   const {mutate} = usePostCommentRemove(postCommentListService, {
-    onSuccess: fetchInitialData,
+    onSuccess: () => {
+      fetchInitialData();
+      showToast({message: 'Cometário deletado'});
+    },
   });
 
   const {bottom} = useAppSafeArea();
