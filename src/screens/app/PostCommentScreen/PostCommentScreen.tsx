@@ -9,7 +9,7 @@ import {
   usePostCommentRemove,
   useUser,
 } from '@domain';
-import {useToast} from '@services';
+import {useToastService} from '@services';
 
 import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
@@ -31,7 +31,7 @@ export function PostCommentScreen({
   const postAuthorId = route.params.postAuthorId;
   const postId = route.params.postId;
   const user = useUser();
-  const {showToast} = useToast();
+  const {showToast} = useToastService();
 
   const {data, fetchNextPage, hasNextPage, fetchInitialData} =
     usePostCommentList(postCommentListService, postId);
