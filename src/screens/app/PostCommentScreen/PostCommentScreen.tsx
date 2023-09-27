@@ -43,7 +43,12 @@ export function PostCommentScreen({
   const {mutate} = usePostCommentRemove(postCommentListService, {
     onSuccess: () => {
       fetchInitialData();
-      showToast({message: 'Cometário deletado'});
+      showToast({
+        message: 'Cometário deletado',
+        duration: 3000,
+        position: 'top',
+        type: 'error',
+      });
     },
   });
 
