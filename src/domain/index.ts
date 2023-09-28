@@ -10,3 +10,8 @@ export * from './PostComment/useCases/use-post-comment-list.hook';
 export * from './PostComment/useCases/use-post-comment-create.hook';
 export * from './PostComment/useCases/use-post-comment-remove';
 export * from './Auth/usu-user';
+export * from './User/user.contract';
+export * from './User/user-api.types';
+export * from './User/user.model';
+export * from './User/user.service';
+export * from './User/useCases/use-user-get-by-id';

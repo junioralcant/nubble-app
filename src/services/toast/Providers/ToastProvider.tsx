@@ -1,4 +1,4 @@
-import {PropsWithChildren, createContext, useState} from 'react';
+import React, {PropsWithChildren, createContext, useState} from 'react';
 
 import {ToastProps, ToastService} from '../toast.types';
 

@@ -8,11 +8,11 @@ import {useAppTheme} from '@hooks';
 import {ThemeColorsTypes} from '@theme';
 
 type ActivityIndicatorProps = {
-  color: ThemeColorsTypes;
+  color?: ThemeColorsTypes;
 } & Omit<RNActivityIndicatorProps, 'color'>;
 
 export function ActivityIndicator({
-  color,
+  color = 'primary',
   ...rNActivityIndicatorProps
 }: ActivityIndicatorProps) {
   const {colors} = useAppTheme();

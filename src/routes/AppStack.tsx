@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {postCommentServiceFactory} from '@domain';
+import {postCommentServiceFactory, userServiceFactory} from '@domain';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {AppTabBottomTabNavigatorParamsList, AppTapNavigate} from '@routes';
-import {PostCommentScreen, SettingsScreen} from '@screens';
+import {PostCommentScreen, ProfileScreen, SettingsScreen} from '@screens';
 
 export type AppStackParamsList = {
   AppTabNavigate: NavigatorScreenParams<AppTabBottomTabNavigatorParamsList>;
@@ -13,6 +13,9 @@ export type AppStackParamsList = {
   PostCommentScreen: {
     postId: number;
     postAuthorId: number;
+  };
+  ProfileScreen: {
+    userId: number;
   };
 };
 
@@ -34,6 +37,11 @@ export function AppStack() {
             postCommentListService={postCommentServiceFactory()}
             {...props}
           />
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="ProfileScreen">
+        {props => (
+          <ProfileScreen userService={userServiceFactory()} {...props} />
         )}
       </Stack.Screen>
     </Stack.Navigator>
