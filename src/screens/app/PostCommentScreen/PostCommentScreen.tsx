@@ -36,9 +36,7 @@ export function PostCommentScreen({
   const {data, fetchNextPage, hasNextPage, fetchInitialData} =
     usePostCommentList(postCommentListService, postId);
 
-  const {createComment} = usePostCommentCreate(postCommentListService, postId, {
-    onSuccess: fetchInitialData,
-  });
+  const {createComment} = usePostCommentCreate(postCommentListService, postId);
 
   const {mutate} = usePostCommentRemove(postCommentListService, {
     onSuccess: () => {
