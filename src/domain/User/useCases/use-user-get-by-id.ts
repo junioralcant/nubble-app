@@ -7,6 +7,7 @@ export function useUserGetById(id: number, userService: IUser) {
   const {data, isLoading, isError} = useQuery({
     queryKey: [QueryKey.UserGetById, id],
     queryFn: () => userService.getById(id),
+    staleTime: 1000 * 30, //10s
   });
 
   return {
