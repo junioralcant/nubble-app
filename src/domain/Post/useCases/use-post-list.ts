@@ -1,8 +1,8 @@
 import {PostModel, IPostList} from '@domain';
-import {usePaginateList} from '@infra';
+import {QueryKey, usePaginateList} from '@infra';
 
 export function usePostList(postListService: IPostList) {
-  return usePaginateList<PostModel>(async params =>
+  return usePaginateList<PostModel>([QueryKey.PostList], async params =>
     postListService.getList(params),
   );
 }

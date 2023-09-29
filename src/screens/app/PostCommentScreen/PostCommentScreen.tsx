@@ -33,14 +33,16 @@ export function PostCommentScreen({
   const user = useUser();
   const {showToast} = useToastService();
 
-  const {data, fetchNextPage, hasNextPage, fetchInitialData} =
-    usePostCommentList(postCommentListService, postId);
+  const {list, fetchNextPage, hasNextPage, refresh} = usePostCommentList(
+    postCommentListService,
+    postId,
+  );
 
   const {createComment} = usePostCommentCreate(postCommentListService, postId);
 
   const {mutate} = usePostCommentRemove(postCommentListService, {
     onSuccess: () => {
-      fetchInitialData();
+      refresh();
       showToast({
         message: 'Cometário deletado',
         duration: 3000,
@@ -72,7 +74,7 @@ export function PostCommentScreen({
         <FlatList
           contentContainerStyle={{paddingBottom: bottom}}
           showsVerticalScrollIndicator={false}
-          data={data}
+          data={list}
           renderItem={renderItem}
           ListFooterComponent={
             <PostCommentBottom
@@ -84,7 +86,7 @@ export function PostCommentScreen({
 
         <PostCommentInputTextMessage
           createComment={createComment}
-          onAddComment={fetchInitialData}
+          onAddComment={refresh}
         />
       </Box>
     </Screen>

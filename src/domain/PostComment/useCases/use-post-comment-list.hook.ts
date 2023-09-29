@@ -1,5 +1,5 @@
 import {PageParams} from '@domain';
-import {usePaginateList} from '@infra';
+import {QueryKey, usePaginateList} from '@infra';
 
 import {IPostComment} from '../post-comment.contracts';
 
@@ -11,5 +11,5 @@ export function usePostCommentList(
     return postCommentService.getList(postId, params);
   }
 
-  return usePaginateList(getList);
+  return usePaginateList([QueryKey.PostCommentList, postId], getList);
 }
