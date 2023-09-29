@@ -40,7 +40,7 @@ export function PostCommentScreen({
 
   const {createComment} = usePostCommentCreate(postCommentListService, postId);
 
-  const {mutate} = usePostCommentRemove(postCommentListService, {
+  const {removeComment} = usePostCommentRemove(postId, postCommentListService, {
     onSuccess: () => {
       refresh();
       showToast({
@@ -58,7 +58,7 @@ export function PostCommentScreen({
     return (
       <PostCommentItem
         postComment={item}
-        onRemoveComment={mutate}
+        onRemoveComment={removeComment}
         isAllowToDelete={postCommentListService.isAllowToDelete(
           item,
           user.id,

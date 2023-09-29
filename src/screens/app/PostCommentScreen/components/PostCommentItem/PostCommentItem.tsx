@@ -7,7 +7,7 @@ import {Box, ProfileAvatar, Text} from '@components';
 
 type Props = {
   postComment: PostCommentModel;
-  onRemoveComment: (variable: {postCommentId: number}) => Promise<void>;
+  onRemoveComment: (postCommentId: number) => void;
   isAllowToDelete: boolean;
 };
 
@@ -20,7 +20,7 @@ export function PostCommentItem({
     Alert.alert('Deseja excluir o comentário ?', 'pressione confirmar', [
       {
         text: 'Confirmar',
-        onPress: () => onRemoveComment({postCommentId: postComment.id}),
+        onPress: () => onRemoveComment(postComment.id),
       },
       {
         text: 'Cancelar',
