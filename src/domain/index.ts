@@ -15,3 +15,8 @@ export * from './User/user-api.types';
 export * from './User/user.model';
 export * from './User/user.service';
 export * from './User/useCases/use-user-get-by-id';
+export * from './Auth/useCases/useAuthSignIn';
+export * from './Auth/useCases/useAuthSignOut';
+export * from './Auth/auth.service';
+export * from './Auth/auth.model';
+export * from './Auth/auth.contracts';
