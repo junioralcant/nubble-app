@@ -1,3 +1,4 @@
+import {authApiFactory} from './auth-api';
 import {authAdapter} from './auth.adapter';
 import {IAuth, IAuthAPI} from './auth.contracts';
 
@@ -17,4 +18,8 @@ export class AuthService implements IAuth {
     const message = await this.authApi.signOut();
     return message;
   }
+}
+
+export function authServiceFactory(): IAuth {
+  return new AuthService(authApiFactory());
 }

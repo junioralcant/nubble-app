@@ -1,7 +1,8 @@
 import React from 'react';
-import {Alert} from 'react-native';
 
+import {authServiceFactory, useAuthSingIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {AuthScreenProps} from '@routes';
@@ -26,8 +27,13 @@ export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
     mode: 'onChange',
   });
 
+  const {showToast} = useToastService();
+  const {isLoading, signIn} = useAuthSingIn(authServiceFactory(), {
+    onError: message => showToast({message, type: 'error', duration: 4000}),
+  });
+
   function handleSubmitForm({email, password}: LoginSchemaTypes) {
-    Alert.alert(email, password);
+    signIn({email, password});
   }
 
   function navigateToSignUpScreen() {
@@ -82,6 +88,7 @@ export function LoginScreen({navigation}: AuthScreenProps<'LoginScreen'>) {
         preset="outline"
         mt="s12"
         onPress={navigateToSignUpScreen}
+        loading={isLoading}
       />
     </Screen>
   );

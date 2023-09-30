@@ -10,13 +10,13 @@ type Variables = {
 
 export function useAuthSingIn(
   authService: IAuth,
-  options: MutationOptions<IAuth.Model>,
+  options?: MutationOptions<IAuth.Model>,
 ) {
   const {isLoading, mutate} = useMutation<IAuth.Model, Error, Variables>({
     mutationFn: ({email, password}) => authService.signIn(email, password),
     retry: false,
     onError: error => {
-      if (options.onError) {
+      if (options?.onError) {
         options.onError(error.message);
       }
     },
