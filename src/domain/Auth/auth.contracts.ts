@@ -4,6 +4,8 @@ import {AuthCredentialsModel} from './auth.model';
 export interface IAuth {
   signIn(email: string, password: string): Promise<IAuth.Model>;
   signOut(): Promise<string>;
+  updateToken(token: string): void;
+  removeToken(): void;
 }
 
 export namespace IAuth {
@@ -13,6 +15,8 @@ export namespace IAuth {
 export interface IAuthAPI {
   signIn(email: string, password: string): Promise<IAuthAPI.Model>;
   signOut(): Promise<string>;
+  updateToken(token: string): void;
+  removeToken(): void;
 }
 
 export namespace IAuthAPI {

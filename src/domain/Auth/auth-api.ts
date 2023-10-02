@@ -15,6 +15,14 @@ export class AuthAPI implements IAuthAPI {
     const {data} = await api.get<string>('profile/logout');
     return data;
   }
+
+  updateToken(token: string): void {
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
+
+  removeToken(): void {
+    api.defaults.headers.common.Authorization = null;
+  }
 }
 
 export function authApiFactory(): IAuthAPI {

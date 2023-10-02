@@ -18,6 +18,14 @@ export class AuthService implements IAuth {
     const message = await this.authApi.signOut();
     return message;
   }
+
+  updateToken(token: string): void {
+    this.authApi.updateToken(token);
+  }
+
+  removeToken(): void {
+    this.authApi.removeToken();
+  }
 }
 
 export function authServiceFactory(): IAuth {
