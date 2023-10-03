@@ -1,13 +1,16 @@
 import React from 'react';
 
+import {authServiceFactory, useAuthSingOut} from '@domain';
+
 import {AppScreenProps} from '@routes';
 
-import {Screen, Text} from '@components';
+import {Button, Screen} from '@components';
 
 export function SettingsScreen({}: AppScreenProps<'SettingsScreen'>) {
+  const {isLoading, signOut} = useAuthSingOut(authServiceFactory());
   return (
     <Screen canGoBack>
-      <Text>Settings Screen</Text>
+      <Button title="Sair da conta" loading={isLoading} onPress={signOut} />
     </Screen>
   );
 }
