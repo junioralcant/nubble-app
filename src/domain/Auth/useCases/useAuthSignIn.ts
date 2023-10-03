@@ -1,4 +1,5 @@
 import {MutationOptions} from '@infra';
+import {useAuthCredentials} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
 import {IAuth} from '../auth.contracts';
@@ -12,6 +13,7 @@ export function useAuthSingIn(
   authService: IAuth,
   options?: MutationOptions<IAuth.Model>,
 ) {
+  const {saveCredentials} = useAuthCredentials();
   const {isLoading, mutate} = useMutation<IAuth.Model, Error, Variables>({
     mutationFn: ({email, password}) => authService.signIn(email, password),
     retry: false,
@@ -20,8 +22,10 @@ export function useAuthSingIn(
         options.onError(error.message);
       }
     },
-    onSuccess: authCredentials =>
-      authService.updateToken(authCredentials.token),
+    onSuccess: authCredentials => {
+      authService.updateToken(authCredentials.token);
+      saveCredentials(authCredentials);
+    },
   });
 
   return {
