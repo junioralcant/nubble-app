@@ -1,25 +1,15 @@
-import {create} from 'zustand';
-import {persist} from 'zustand/middleware';
-
-import {storage} from '../storage';
+import {useContext} from 'react';
 
 import {AuthCredentialsService} from './auth-credentials.types';
+import {AuthCredentialsContext} from './Provider/auth-credentials.provider';
 
 export function useAuthCredentials(): AuthCredentialsService {
-  return useAuthCredentialsZustand();
-}
+  const context = useContext(AuthCredentialsContext);
+  if (!context) {
+    throw new Error(
+      'AuthCredentials should be used within a AuthCredentialsProvider',
+    );
+  }
 
-const useAuthCredentialsZustand = create<AuthCredentialsService>()(
-  persist(
-    set => ({
-      authCredentials: null,
-      isLoading: false,
-      saveCredentials: async ac => set({authCredentials: ac}),
-      removeCredentials: async () => set({authCredentials: null}),
-    }),
-    {
-      name: '@Auth',
-      storage: storage,
-    },
-  ),
-);
+  return context;
+}
