@@ -20,3 +20,4 @@ export * from './Auth/useCases/useAuthSignOut';
 export * from './Auth/auth.service';
 export * from './Auth/auth.model';
 export * from './Auth/auth.contracts';
+export * from './Auth/auth.service';

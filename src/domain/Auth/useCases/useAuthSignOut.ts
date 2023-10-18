@@ -17,10 +17,7 @@ export function useAuthSingOut(
         options.onError(error.message);
       }
     },
-    onSuccess: () => {
-      authService.removeToken();
-      removeCredentials();
-    },
+    onSuccess: removeCredentials,
   });
 
   return {
