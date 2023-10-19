@@ -1,5 +1,7 @@
 import {api} from '@api';
 
+import {UserAPI} from '../User/user-api.types';
+
 import {IAuthAPI} from './auth.contracts';
 
 export class AuthAPI implements IAuthAPI {
@@ -14,6 +16,11 @@ export class AuthAPI implements IAuthAPI {
   async signOut(): Promise<string> {
     const {data} = await api.get<string>('profile/logout');
     return data;
+  }
+
+  async signUp(data: IAuthAPI.ModelSignUp): Promise<UserAPI> {
+    const response = await api.post<UserAPI>('register', data);
+    return response.data;
   }
 
   updateToken(token: string): void {

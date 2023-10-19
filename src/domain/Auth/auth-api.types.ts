@@ -7,3 +7,11 @@ export type AuthCredentialsAPI = {
   };
   user: UserAPI;
 };
+
+export type SignUpDataAPIModel = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+};
