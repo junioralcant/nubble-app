@@ -31,6 +31,16 @@ export class AuthService implements IAuth {
   removeToken(): void {
     this.authApi.removeToken();
   }
+
+  async isEmailAvailable(email: string): Promise<boolean> {
+    const {isAvailable} = await this.authApi.isEmailAvailable(email);
+    return isAvailable;
+  }
+
+  async isUserNameAvailable(userName: string): Promise<boolean> {
+    const {isAvailable} = await this.authApi.isUserNameAvailable(userName);
+    return isAvailable;
+  }
 }
 
 export function authServiceFactory(): IAuth {

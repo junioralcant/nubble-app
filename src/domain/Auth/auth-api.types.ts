@@ -15,3 +15,8 @@ export type SignUpDataAPIModel = {
   email: string;
   password: string;
 };
+
+export type FieldIsAvailableAPIModel = {
+  message: string;
+  isAvailable: boolean;
+};

@@ -2,6 +2,7 @@ import {api} from '@api';
 
 import {UserAPI} from '../User/user-api.types';
 
+import {FieldIsAvailableAPIModel} from './auth-api.types';
 import {IAuthAPI} from './auth.contracts';
 
 export class AuthAPI implements IAuthAPI {
@@ -29,6 +30,32 @@ export class AuthAPI implements IAuthAPI {
 
   removeToken(): void {
     api.defaults.headers.common.Authorization = null;
+  }
+
+  async isEmailAvailable(
+    email: string,
+  ): Promise<IAuthAPI.ModelFieldIsAvailable> {
+    const {data} = await api.get<IAuthAPI.ModelFieldIsAvailable>(
+      'validate-email',
+      {
+        params: {email},
+      },
+    );
+
+    return data;
+  }
+
+  async isUserNameAvailable(
+    userName: string,
+  ): Promise<FieldIsAvailableAPIModel> {
+    const {data} = await api.get<IAuthAPI.ModelFieldIsAvailable>(
+      'validate-username',
+      {
+        params: {userName},
+      },
+    );
+
+    return data;
   }
 }
 

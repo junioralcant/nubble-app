@@ -1,6 +1,10 @@
 import {UserAPI} from '../User/user-api.types';
 
-import {AuthCredentialsAPI, SignUpDataAPIModel} from './auth-api.types';
+import {
+  AuthCredentialsAPI,
+  FieldIsAvailableAPIModel,
+  SignUpDataAPIModel,
+} from './auth-api.types';
 import {AuthCredentialsModel, SignUpDataModel} from './auth.model';
 
 export interface IAuth {
@@ -9,6 +13,8 @@ export interface IAuth {
   signUp(signUpData: IAuth.ModelSignUpData): Promise<void>;
   updateToken(token: string): void;
   removeToken(): void;
+  isEmailAvailable(email: string): Promise<boolean>;
+  isUserNameAvailable(userName: string): Promise<boolean>;
 }
 
 export namespace IAuth {
@@ -22,9 +28,14 @@ export interface IAuthAPI {
   signUp(data: IAuthAPI.ModelSignUp): Promise<UserAPI>;
   updateToken(token: string): void;
   removeToken(): void;
+  isEmailAvailable(email: string): Promise<IAuthAPI.ModelFieldIsAvailable>;
+  isUserNameAvailable(
+    userName: string,
+  ): Promise<IAuthAPI.ModelFieldIsAvailable>;
 }
 
 export namespace IAuthAPI {
   export type Model = AuthCredentialsAPI;
   export type ModelSignUp = SignUpDataAPIModel;
+  export type ModelFieldIsAvailable = FieldIsAvailableAPIModel;
 }

@@ -1,6 +1,10 @@
 import React from 'react';
 
-import {authServiceFactory, useAuthSignUp} from '@domain';
+import {
+  authServiceFactory,
+  useAuthIsUsernameIsAvailable,
+  useAuthSignUp,
+} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -8,6 +12,7 @@ import {useResetNavigationSuccess} from '@hooks';
 import {AuthScreenProps, AuthStackParamsList} from '@routes';
 
 import {
+  ActivityIndicator,
   Button,
   FormInputText,
   FormPasswordInputText,
@@ -42,10 +47,16 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
     },
   });
 
-  const {control, formState, handleSubmit} = useForm<SignUpSchemaTypes>({
+  const {control, formState, handleSubmit, watch} = useForm<SignUpSchemaTypes>({
     resolver: zodResolver(signUpSchema),
     defaultValues,
     mode: 'onChange',
+  });
+
+  const username = watch('username');
+  const userNameQuery = useAuthIsUsernameIsAvailable({
+    authService: authServiceFactory(),
+    username,
   });
 
   function submitForm(formValues: SignUpSchemaTypes) {
@@ -64,6 +75,11 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         label="Seu username"
         placeholder="@"
         boxProps={{mb: 's20'}}
+        RightComponent={
+          userNameQuery.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormInputText
