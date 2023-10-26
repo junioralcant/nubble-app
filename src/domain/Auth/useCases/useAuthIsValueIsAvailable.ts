@@ -8,9 +8,14 @@ import {IAuth} from '../auth.contracts';
 type Params = {
   authService: IAuth;
   username: string;
+  enabled: boolean;
 };
 
-export function useAuthIsUsernameIsAvailable({authService, username}: Params) {
+export function useAuthIsUsernameIsAvailable({
+  authService,
+  username,
+  enabled,
+}: Params) {
   const debouncedUsername = useDebounce<string>(username, 1500);
 
   const {data, isFetching} = useQuery({
@@ -18,10 +23,13 @@ export function useAuthIsUsernameIsAvailable({authService, username}: Params) {
     queryFn: () => authService.isUserNameAvailable(debouncedUsername),
     retry: false,
     staleTime: 20000,
+    enabled: enabled && debouncedUsername.length > 0,
   });
+
+  const isDebouncing = debouncedUsername !== username;
 
   return {
     isAvailable: !!data,
-    isFetching,
+    isFetching: isFetching || isDebouncing,
   };
 }
