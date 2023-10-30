@@ -30,6 +30,7 @@ export function useAuthIsUsernameIsAvailable({
 
   return {
     isAvailable: !!data,
+    isUnavailable: data === false,
     isFetching: isFetching || isDebouncing,
   };
 }

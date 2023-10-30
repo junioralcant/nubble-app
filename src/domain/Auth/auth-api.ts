@@ -51,7 +51,7 @@ export class AuthAPI implements IAuthAPI {
     const {data} = await api.get<IAuthAPI.ModelFieldIsAvailable>(
       'validate-username',
       {
-        params: {userName},
+        params: {username: userName},
       },
     );
 

@@ -16,6 +16,7 @@ export function FormInputText<FormTypes extends FieldValues>({
   control,
   name,
   rules,
+  errorMessage,
   ...textInputProps
 }: FormInputTextProps<FormTypes>) {
   return (
@@ -27,7 +28,7 @@ export function FormInputText<FormTypes extends FieldValues>({
         <TextInput
           value={field.value}
           onChangeText={field.onChange as PathValue<FormTypes, Path<FormTypes>>}
-          errorMessage={fieldState.error?.message}
+          errorMessage={fieldState.error?.message || errorMessage}
           {...textInputProps}
         />
       )}
