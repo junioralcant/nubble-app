@@ -58,7 +58,6 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
   const userNameState = getFieldState('username');
   const userNameIsValid = !userNameState.invalid && userNameState.isDirty;
   const userNameQuery = useAuthIsUsernameIsAvailable({
-    authService: authServiceFactory(),
     username,
     enabled: userNameIsValid,
   });
