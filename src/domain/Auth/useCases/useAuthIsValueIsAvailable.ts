@@ -62,7 +62,7 @@ export function useAuthIsEmailIsAvailable({
   return useAuthIsValueAvailable({
     value: email,
     enabled,
-    isAvailableFunc: authServiceFactory().isEmailAvailable,
+    isAvailableFunc: () => authServiceFactory().isEmailAvailable(email),
     queryKey: QueryKey.IsEmailAvailable,
   });
 }
