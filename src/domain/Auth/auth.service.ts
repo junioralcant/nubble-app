@@ -37,10 +37,9 @@ export class AuthService implements IAuth {
     return isAvailable;
   }
 
-  async isUserNameAvailable(userName: string): Promise<boolean> {
-    console.log(userName);
+  async isUserNameAvailable(username: string): Promise<boolean> {
+    const {isAvailable} = await this.authApi.isUserNameAvailable(username);
 
-    const {isAvailable} = await this.authApi.isUserNameAvailable(userName);
     return isAvailable;
   }
 }

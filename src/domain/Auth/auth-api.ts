@@ -11,6 +11,8 @@ export class AuthAPI implements IAuthAPI {
       email,
       password,
     });
+    console.log(data);
+
     return data;
   }
 
@@ -46,12 +48,12 @@ export class AuthAPI implements IAuthAPI {
   }
 
   async isUserNameAvailable(
-    userName: string,
+    username: string,
   ): Promise<FieldIsAvailableAPIModel> {
     const {data} = await api.get<IAuthAPI.ModelFieldIsAvailable>(
       'validate-username',
       {
-        params: {username: userName},
+        params: {username},
       },
     );
 

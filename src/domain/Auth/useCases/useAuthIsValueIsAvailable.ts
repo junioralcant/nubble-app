@@ -47,7 +47,7 @@ export function useAuthIsUsernameIsAvailable({
   return useAuthIsValueAvailable({
     value: username,
     enabled,
-    isAvailableFunc: authServiceFactory().isUserNameAvailable,
+    isAvailableFunc: () => authServiceFactory().isUserNameAvailable(username),
     queryKey: QueryKey.IsUserNameAvailable,
   });
 }

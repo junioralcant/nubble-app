@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  authServiceFactory,
-  useAuthIsUsernameIsAvailable,
-  useAuthSignUp,
-} from '@domain';
+import {authServiceFactory, useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -21,6 +17,7 @@ import {
 } from '@components';
 
 import {SignUpSchemaTypes, signUpSchema} from './sign-up.schema';
+import {useAsyncValidation} from './use-async-validation.hook';
 
 const resetParams: AuthStackParamsList['SuccessScreen'] = {
   title: 'Sua conta foi criada com sucesso!',
@@ -54,13 +51,7 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
       mode: 'onChange',
     });
 
-  const username = watch('username');
-  const userNameState = getFieldState('username');
-  const userNameIsValid = !userNameState.invalid && userNameState.isDirty;
-  const userNameQuery = useAuthIsUsernameIsAvailable({
-    username,
-    enabled: userNameIsValid,
-  });
+  const useNameValidation = useAsyncValidation({watch, getFieldState});
 
   function submitForm(formValues: SignUpSchemaTypes) {
     signUp(formValues);
@@ -78,11 +69,9 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         label="Seu username"
         placeholder="@"
         boxProps={{mb: 's20'}}
-        errorMessage={
-          userNameQuery.isUnavailable ? 'username indisponível' : undefined
-        }
+        errorMessage={useNameValidation.errorMessage}
         RightComponent={
-          userNameQuery.isFetching ? (
+          useNameValidation.isFetching ? (
             <ActivityIndicator size="small" />
           ) : undefined
         }
@@ -126,11 +115,7 @@ export function SignUpScreen({}: AuthScreenProps<'SignUpScreen'>) {
         loading={isLoading}
         title="Criar uma conta"
         onPress={handleSubmit(submitForm)}
-        disabled={
-          !formState.isValid ||
-          userNameQuery.isFetching ||
-          userNameQuery.isUnavailable
-        }
+        disabled={!formState.isValid || useNameValidation.notReady}
       />
     </Screen>
   );

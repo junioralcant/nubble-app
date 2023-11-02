@@ -14,7 +14,7 @@ export interface IAuth {
   updateToken(token: string): void;
   removeToken(): void;
   isEmailAvailable(email: string): Promise<boolean>;
-  isUserNameAvailable(userName: string): Promise<boolean>;
+  isUserNameAvailable(username: string): Promise<boolean>;
 }
 
 export namespace IAuth {
@@ -30,7 +30,7 @@ export interface IAuthAPI {
   removeToken(): void;
   isEmailAvailable(email: string): Promise<IAuthAPI.ModelFieldIsAvailable>;
   isUserNameAvailable(
-    userName: string,
+    username: string,
   ): Promise<IAuthAPI.ModelFieldIsAvailable>;
 }
 
