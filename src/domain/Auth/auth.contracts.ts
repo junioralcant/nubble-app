@@ -15,11 +15,13 @@ export interface IAuth {
   removeToken(): void;
   isEmailAvailable(email: string): Promise<boolean>;
   isUserNameAvailable(username: string): Promise<boolean>;
+  requestNewPassword(params: IAuth.ForgotPasswordParams): Promise<string>;
 }
 
 export namespace IAuth {
   export type Model = AuthCredentialsModel;
   export type ModelSignUpData = SignUpDataModel;
+  export type ForgotPasswordParams = {email: string};
 }
 
 export interface IAuthAPI {
@@ -32,10 +34,14 @@ export interface IAuthAPI {
   isUserNameAvailable(
     username: string,
   ): Promise<IAuthAPI.ModelFieldIsAvailable>;
+  forgotPassword(
+    params: IAuthAPI.ForgotPasswordParams,
+  ): Promise<{message: string}>;
 }
 
 export namespace IAuthAPI {
   export type Model = AuthCredentialsAPI;
   export type ModelSignUp = SignUpDataAPIModel;
   export type ModelFieldIsAvailable = FieldIsAvailableAPIModel;
+  export type ForgotPasswordParams = {email: string};
 }

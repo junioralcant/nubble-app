@@ -23,3 +23,4 @@ export * from './Auth/auth.contracts';
 export * from './Auth/auth.service';
 export * from './Auth/useCases/useAuthSignUp';
 export * from './Auth/useCases/useAuthIsValueIsAvailable';
+export * from './Auth/useCases/useAuthRequestNewPassword';

@@ -42,6 +42,13 @@ export class AuthService implements IAuth {
 
     return isAvailable;
   }
+
+  async requestNewPassword(
+    params: IAuth.ForgotPasswordParams,
+  ): Promise<string> {
+    const {message} = await this.authApi.forgotPassword(params);
+    return message;
+  }
 }
 
 export function authServiceFactory(): IAuth {

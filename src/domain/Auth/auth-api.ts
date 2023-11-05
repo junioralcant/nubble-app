@@ -59,6 +59,13 @@ export class AuthAPI implements IAuthAPI {
 
     return data;
   }
+
+  async forgotPassword(
+    params: IAuthAPI.ForgotPasswordParams,
+  ): Promise<{message: string}> {
+    const {data} = await api.post<{message: string}>('forgot-password', params);
+    return data;
+  }
 }
 
 export function authApiFactory(): IAuthAPI {
