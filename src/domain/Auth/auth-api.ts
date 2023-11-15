@@ -7,7 +7,7 @@ import {IAuthAPI} from './auth.contracts';
 
 export class AuthAPI implements IAuthAPI {
   async signIn(email: string, password: string): Promise<IAuthAPI.Model> {
-    const {data} = await api.post<IAuthAPI.Model>('login', {
+    const {data} = await api.post<IAuthAPI.Model>('auth/login', {
       email,
       password,
     });
@@ -17,12 +17,12 @@ export class AuthAPI implements IAuthAPI {
   }
 
   async signOut(): Promise<string> {
-    const {data} = await api.get<string>('profile/logout');
+    const {data} = await api.get<string>('auth/profile/logout');
     return data;
   }
 
   async signUp(data: IAuthAPI.ModelSignUp): Promise<UserAPI> {
-    const response = await api.post<UserAPI>('register', data);
+    const response = await api.post<UserAPI>('auth/register', data);
     return response.data;
   }
 
@@ -38,7 +38,7 @@ export class AuthAPI implements IAuthAPI {
     email: string,
   ): Promise<IAuthAPI.ModelFieldIsAvailable> {
     const {data} = await api.get<IAuthAPI.ModelFieldIsAvailable>(
-      'validate-email',
+      'auth/validate-email',
       {
         params: {email},
       },
@@ -51,7 +51,7 @@ export class AuthAPI implements IAuthAPI {
     username: string,
   ): Promise<FieldIsAvailableAPIModel> {
     const {data} = await api.get<IAuthAPI.ModelFieldIsAvailable>(
-      'validate-username',
+      'au th/validate-username',
       {
         params: {username},
       },
