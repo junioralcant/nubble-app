@@ -4,6 +4,8 @@ export type AuthCredentialsAPI = {
   auth: {
     type: string; //'bearer';
     token: string; // 'NA.GCfDf81QRs0q4VxyFSEvWs8kZ-DoZnl5zKLn8UDY8ntedjZCPgxVxfFijlQy';
+    refreshToken: string;
+    tokenExpiresAt: string;
   };
   user: UserAPI;
 };

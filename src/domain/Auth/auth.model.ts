@@ -2,6 +2,8 @@ import {UserModel} from '../User/user.model';
 
 export interface AuthCredentialsModel {
   token: string;
+  refreshToken: string;
+  tokenExpiresAt: string;
   user: UserModel;
 }
 

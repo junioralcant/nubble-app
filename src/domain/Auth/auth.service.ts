@@ -1,7 +1,7 @@
 import {authApiFactory} from './auth-api';
 import {authAdapter} from './auth.adapter';
 import {IAuth, IAuthAPI} from './auth.contracts';
-import {SignUpDataModel} from './auth.model';
+import {AuthCredentialsModel, SignUpDataModel} from './auth.model';
 
 export class AuthService implements IAuth {
   constructor(private readonly authApi: IAuthAPI) {}
@@ -48,6 +48,13 @@ export class AuthService implements IAuth {
   ): Promise<string> {
     const {message} = await this.authApi.forgotPassword(params);
     return message;
+  }
+
+  async authenticateByRefreshToken(
+    refreshToken: string,
+  ): Promise<AuthCredentialsModel> {
+    const acAPI = await this.authApi.refreshToken(refreshToken);
+    return authAdapter.toAuthCredentials(acAPI);
   }
 }
 

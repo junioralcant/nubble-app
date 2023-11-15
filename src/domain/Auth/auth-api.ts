@@ -66,6 +66,14 @@ export class AuthAPI implements IAuthAPI {
     const {data} = await api.post<{message: string}>('forgot-password', params);
     return data;
   }
+
+  async refreshToken(token: string): Promise<IAuthAPI.Model> {
+    const {data} = await api.post<IAuthAPI.Model>('auth/refresh-token', {
+      refreshToken: token,
+    });
+
+    return data;
+  }
 }
 
 export function authApiFactory(): IAuthAPI {

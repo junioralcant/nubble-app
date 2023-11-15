@@ -16,6 +16,7 @@ export interface IAuth {
   isEmailAvailable(email: string): Promise<boolean>;
   isUserNameAvailable(username: string): Promise<boolean>;
   requestNewPassword(params: IAuth.ForgotPasswordParams): Promise<string>;
+  authenticateByRefreshToken(refreshToken: string): Promise<IAuth.Model>;
 }
 
 export namespace IAuth {
@@ -37,6 +38,7 @@ export interface IAuthAPI {
   forgotPassword(
     params: IAuthAPI.ForgotPasswordParams,
   ): Promise<{message: string}>;
+  refreshToken(token: string): Promise<IAuthAPI.Model>;
 }
 
 export namespace IAuthAPI {
