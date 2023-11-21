@@ -1,5 +1,6 @@
 import {PropsWithChildren, createContext, useEffect, useState} from 'react';
 
+import {api} from '@api';
 import {AuthCredentialsModel, authServiceFactory} from '@domain';
 
 import {authCredentialsStorage} from '../auth-credentials-storage';
@@ -20,6 +21,33 @@ export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
   useEffect(() => {
     startAuthCredentials();
   }, []);
+
+  useEffect(() => {
+    const interceptor = api.interceptors.response.use(
+      response => response,
+      async responseError => {
+        if (responseError.response.status === 401) {
+          if (!authCredentials?.refreshToken) {
+            removeCredentials();
+            return Promise.reject(responseError);
+          }
+
+          const failedRequest = responseError.config;
+
+          const newAuthCredentials =
+            await authServiceFactory().authenticateByRefreshToken(
+              authCredentials.refreshToken,
+            );
+
+          saveCredentials(newAuthCredentials);
+
+          failedRequest.headers.Authorization = `Bearer ${newAuthCredentials.token}`;
+        }
+      },
+    );
+
+    return () => api.interceptors.response.eject(interceptor);
+  }, [authCredentials?.refreshToken]);
 
   async function startAuthCredentials() {
     try {
