@@ -1,9 +1,12 @@
 import {api} from '@api';
+import {AxiosRequestConfig} from 'axios';
 
 import {UserAPI} from '../User/user-api.types';
 
 import {FieldIsAvailableAPIModel} from './auth-api.types';
 import {IAuthAPI} from './auth.contracts';
+
+const REFRESH_TOKEN_URL = 'auth/refresh-token';
 
 export class AuthAPI implements IAuthAPI {
   async signIn(email: string, password: string): Promise<IAuthAPI.Model> {
@@ -68,11 +71,16 @@ export class AuthAPI implements IAuthAPI {
   }
 
   async refreshToken(token: string): Promise<IAuthAPI.Model> {
-    const {data} = await api.post<IAuthAPI.Model>('auth/refresh-token', {
+    const {data} = await api.post<IAuthAPI.Model>(REFRESH_TOKEN_URL, {
       refreshToken: token,
     });
 
     return data;
+  }
+
+  isRefreshTokenRequest(request: AxiosRequestConfig): boolean {
+    const url = request.url;
+    return url === REFRESH_TOKEN_URL;
   }
 }
 

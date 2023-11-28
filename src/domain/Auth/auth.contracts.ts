@@ -1,3 +1,5 @@
+import {AxiosRequestConfig} from 'axios';
+
 import {UserAPI} from '../User/user-api.types';
 
 import {
@@ -39,6 +41,7 @@ export interface IAuthAPI {
     params: IAuthAPI.ForgotPasswordParams,
   ): Promise<{message: string}>;
   refreshToken(token: string): Promise<IAuthAPI.Model>;
+  isRefreshTokenRequest(request: AxiosRequestConfig): boolean;
 }
 
 export namespace IAuthAPI {
