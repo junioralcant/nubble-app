@@ -1,14 +1,23 @@
-import {stringUtils} from '@utils';
+import {dateUtils} from '@utils';
+import {formatISO, sub} from 'date-fns';
 
-describe('stringUtils', () => {
-  describe('capitalizeFirstLetter', () => {
-    it('should capitalize the first letter fo each word', () => {
-      const name = stringUtils.capitalizeFirstLetter('ana maria');
-      expect(name).toBe('Ana Maria');
+const MOCKED_NOW = 1696573824333;
+
+describe('dateUtils', () => {
+  describe('formatRelative', () => {
+    beforeAll(() => {
+      jest.spyOn(Date, 'now').mockImplementation(() => MOCKED_NOW);
     });
 
-    it('should remove leading/trailing spaces', () => {
-      expect(stringUtils.capitalizeFirstLetter(' ana maria')).toBe('Ana Maria');
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should be displayed in seconds if less than 1 minute ago', () => {
+      const time = sub(Date.now(), {seconds: 30});
+      const timeISO = formatISO(time);
+
+      expect(dateUtils.formatRelative(timeISO)).toBe('30 s');
     });
   });
 });
