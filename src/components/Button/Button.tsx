@@ -11,7 +11,7 @@ import {buttonPresets} from './button-presets';
 
 export type ButtonPreset = 'primary' | 'outline';
 
-type ButtonProps = {
+export type ButtonProps = {
   title: string;
   loading?: boolean;
   preset?: ButtonPreset;
