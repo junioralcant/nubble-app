@@ -1,24 +1,22 @@
 import React from 'react';
 
-import {PostModel} from '@domain';
-import {render, screen} from 'test-utils';
+import {fireEvent, render, screen} from 'test-utils';
 
 import {PostBottom} from '../PostBottom';
 
-const mockedPost: PostModel = {
-  id: 1,
-  imageURL: 'fake-url',
-  commentCount: 5,
-  favoriteCount: 2,
-  reactionCount: 8,
-  text: 'this is the text (post description)',
-  author: {
-    id: 2,
-    name: 'Maria Julia',
-    profileURL: 'https://example.com',
-    userName: 'mariajulia',
-  },
-};
+import {mockedPost} from './mockedData/mokedPost';
+
+const mockedNavigate = jest.fn();
+
+jest.mock('@react-navigation/native', () => {
+  const originalModule = jest.requireActual('@react-navigation/native');
+  return {
+    ...originalModule,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
 
 describe('<PostBottom />', () => {
   test('it does not show the comment link if it has no comment', () => {
@@ -27,5 +25,18 @@ describe('<PostBottom />', () => {
     const commentLinkElement = screen.queryByText(/comentário/);
 
     expect(commentLinkElement).toBeFalsy();
+  });
+
+  it('navigates to PostCommentScreen when pressing the comment link', () => {
+    render(<PostBottom {...mockedPost} commentCount={4} />);
+
+    const commentLinkElement = screen.getByText(/comentário/);
+
+    fireEvent.press(commentLinkElement);
+
+    expect(mockedNavigate).toHaveBeenCalledWith('PostCommentScreen', {
+      postId: mockedPost.id,
+      postAuthorId: mockedPost.author.id,
+    });
   });
 });
