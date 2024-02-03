@@ -1,5 +1,5 @@
-import {renderHook, waitFor} from '@testing-library/react-native';
-import {AllTheProviders} from 'test-utils';
+import {waitFor} from '@testing-library/react-native';
+import {renderHook} from 'test-utils';
 
 import {AuthServiceInMemory} from '../../in-memory';
 import {useAuthSingIn} from '../useAuthSignIn';
@@ -22,11 +22,8 @@ describe('useAuthSignIn', () => {
   it('saves credentials if the sign-in successfully', async () => {
     const authServiceInMemory = new AuthServiceInMemory();
     const mockedOnSuccess = jest.fn();
-    const {result} = renderHook(
-      () => useAuthSingIn(authServiceInMemory, {onSuccess: mockedOnSuccess}),
-      {
-        wrapper: AllTheProviders,
-      },
+    const {result} = renderHook(() =>
+      useAuthSingIn(authServiceInMemory, {onSuccess: mockedOnSuccess}),
     );
 
     result.current.signIn({
@@ -48,11 +45,8 @@ describe('useAuthSignIn', () => {
 
     const mockedError = jest.fn();
 
-    const {result} = renderHook(
-      () => useAuthSingIn(authServiceInMemory, {onError: mockedError}),
-      {
-        wrapper: AllTheProviders,
-      },
+    const {result} = renderHook(() =>
+      useAuthSingIn(authServiceInMemory, {onError: mockedError}),
     );
 
     result.current.signIn({
