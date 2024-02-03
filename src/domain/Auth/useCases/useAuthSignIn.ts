@@ -14,7 +14,7 @@ export function useAuthSingIn(
   options?: MutationOptions<IAuth.Model>,
 ) {
   const {saveCredentials} = useAuthCredentials();
-  const {isLoading, mutate} = useMutation<IAuth.Model, Error, Variables>({
+  const mutation = useMutation<IAuth.Model, Error, Variables>({
     mutationFn: ({email, password}) => authService.signIn(email, password),
     retry: false,
     onError: error => {
@@ -29,7 +29,8 @@ export function useAuthSingIn(
   });
 
   return {
-    isLoading,
-    signIn: (variables: Variables) => mutate(variables),
+    isLoading: mutation.isLoading,
+    signIn: (variables: Variables) => mutation.mutate(variables),
+    isSuccess: mutation.isSuccess,
   };
 }
