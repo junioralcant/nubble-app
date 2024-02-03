@@ -1,7 +1,6 @@
 import {renderHook, waitFor} from '@testing-library/react-native';
 import {AllTheProviders} from 'test-utils';
 
-import {authServiceFactory} from '../../auth.service';
 import {AuthServiceInMemory} from '../../in-memory';
 import {useAuthSingIn} from '../useAuthSignIn';
 
@@ -22,10 +21,13 @@ jest.mock('@services', () => {
 describe('useAuthSignIn', () => {
   it('saves credentials if the sign-in successfully', async () => {
     const authServiceInMemory = new AuthServiceInMemory();
-
-    const {result} = renderHook(() => useAuthSingIn(authServiceInMemory), {
-      wrapper: AllTheProviders,
-    });
+    const mockedOnSuccess = jest.fn();
+    const {result} = renderHook(
+      () => useAuthSingIn(authServiceInMemory, {onSuccess: mockedOnSuccess}),
+      {
+        wrapper: AllTheProviders,
+      },
+    );
 
     result.current.signIn({
       email: 'mariajulia@coffstack.com',
@@ -35,10 +37,31 @@ describe('useAuthSignIn', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(mockedSaveCredentials).toHaveBeenCalledWith(mockedAuthCredentials);
+    expect(mockedOnSuccess).toHaveBeenCalledWith(mockedAuthCredentials);
   });
-  it('calls the onError function with a message if sign-in fails', () => {
-    renderHook(() => useAuthSingIn(authServiceFactory()), {
-      wrapper: AllTheProviders,
+  it('calls the onError function with a message if sign-in fails', async () => {
+    const authServiceInMemory = new AuthServiceInMemory();
+
+    jest
+      .spyOn(authServiceInMemory, 'signIn')
+      .mockRejectedValueOnce(new Error('Invalid user'));
+
+    const mockedError = jest.fn();
+
+    const {result} = renderHook(
+      () => useAuthSingIn(authServiceInMemory, {onError: mockedError}),
+      {
+        wrapper: AllTheProviders,
+      },
+    );
+
+    result.current.signIn({
+      email: 'mariajulia@coffstack.com',
+      password: 'supersecret',
     });
+
+    await waitFor(() => expect(result.current.isError).toBe(true));
+
+    expect(mockedError).toHaveBeenCalledWith('Invalid user');
   });
 });
