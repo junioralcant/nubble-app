@@ -22,10 +22,10 @@ export class PostCommentService implements IPostComment {
       perPage: PER_PAGE,
     });
 
-    return {
-      data: postComment.data.map(postCommentAdapter.toPostComment),
-      meta: apiAdapter.toMetaDataPage(postComment.meta),
-    };
+    return apiAdapter.toPageModel(
+      postComment,
+      postCommentAdapter.toPostComment,
+    );
   }
 
   async create(postId: number, message: string): Promise<IPostComment.Model> {

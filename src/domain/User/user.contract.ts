@@ -1,3 +1,5 @@
+import {PageAPI} from '@api';
+
 import {UserAPI} from './user-api.types';
 import {UserModel} from './user.model';
 
@@ -11,6 +13,7 @@ export namespace IUser {
 
 export interface IUserAPI {
   getById(userId: string): Promise<IUserAPI.Model>;
+  getList(search: string): Promise<PageAPI<IUserAPI.Model>>;
 }
 
 export namespace IUserAPI {

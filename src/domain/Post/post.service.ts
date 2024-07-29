@@ -15,10 +15,7 @@ export class PostListService implements IPostList {
       perPage: 10,
     });
 
-    return {
-      data: postList.data.map(postAdapter.toPost),
-      meta: apiAdapter.toMetaDataPage(postList.meta),
-    };
+    return apiAdapter.toPageModel(postList, postAdapter.toPost);
   }
 }
 
