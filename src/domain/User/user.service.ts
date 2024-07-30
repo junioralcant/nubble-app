@@ -10,6 +10,7 @@ export class UserService implements IUser {
 
   async searchUser(search: string): Promise<Page<IUser.Model>> {
     const userAPIs = await this.userApi.getList(search);
+
     return apiAdapter.toPageModel(userAPIs, userAdapter.toUser);
   }
 

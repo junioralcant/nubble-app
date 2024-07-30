@@ -6,14 +6,11 @@ const PATH = 'users';
 
 export class UserAPI implements IUserAPI {
   async getList(search: string): Promise<PageAPI<IUserAPI.Model>> {
-    const response = await api.get<PageAPI<IUserAPI.Model>>(
-      `${PATH}?search=${search}`,
-      {
-        params: {
-          search,
-        },
+    const response = await api.get<PageAPI<IUserAPI.Model>>(`${PATH}`, {
+      params: {
+        search,
       },
-    );
+    });
 
     return response.data;
   }
