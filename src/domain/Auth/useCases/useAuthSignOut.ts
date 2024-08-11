@@ -1,5 +1,5 @@
 import {MutationOptions} from '@infra';
-import {useAuthCredentials} from '@services';
+import {useAuthCredentials, useSearchHistoryService} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
 import {IAuth} from '../auth.contracts';
@@ -9,6 +9,7 @@ export function useAuthSingOut(
   options?: MutationOptions<IAuth.Model>,
 ) {
   const {removeCredentials} = useAuthCredentials();
+  const {clearUserList} = useSearchHistoryService();
   const {isLoading, mutate} = useMutation<string, Error>({
     mutationFn: () => authService.signOut(),
     retry: false,
@@ -17,7 +18,10 @@ export function useAuthSingOut(
         options.onError(error.message);
       }
     },
-    onSuccess: removeCredentials,
+    onSettled: () => {
+      clearUserList();
+      removeCredentials;
+    },
   });
 
   return {

@@ -5,19 +5,25 @@ import {UserModel} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
 import {
+  Box,
   PressableBox,
   PressableBoxProps,
   ProfileAvatar,
+  ProfileAvatarProps,
   Text,
 } from '@components';
 
 type ProfileUserProps = {
   user: Pick<UserModel, 'username' | 'profileUrl' | 'id'>;
+  avatarProps?: Omit<Partial<ProfileAvatarProps>, 'imageURL'>;
+  RightComponent?: React.ReactNode;
 } & PressableBoxProps;
 
 export function ProfileUser({
   user,
+  avatarProps,
   onPress,
+  RightComponent,
   ...pressableBoxProps
 }: ProfileUserProps) {
   const navigation = useNavigation();
@@ -34,13 +40,21 @@ export function ProfileUser({
     <PressableBox
       flexDirection="row"
       alignItems="center"
+      justifyContent="space-between"
       mb="s16"
       onPress={handleOnPress}
       {...pressableBoxProps}>
-      <ProfileAvatar imageURL={user.profileUrl} />
-      <Text ml="s12" semiBold preset="paragraphMedium">
-        {user.username}
-      </Text>
+      <Box flexDirection="row" alignItems="center">
+        <ProfileAvatar
+          size={avatarProps?.size}
+          imageURL={user.profileUrl}
+          borderRadius={avatarProps?.borderRadius}
+        />
+        <Text ml="s12" semiBold preset="paragraphMedium">
+          {user.username}
+        </Text>
+      </Box>
+      {RightComponent}
     </PressableBox>
   );
 }
