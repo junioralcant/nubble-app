@@ -26,3 +26,7 @@ export * from './Auth/useCases/useAuthSignUp';
 export * from './Auth/useCases/useAuthIsValueIsAvailable';
 export * from './Auth/useCases/useAuthRequestNewPassword';
 export * from './Auth/auth-api';
+export * from './PostComment/post-comment.api';
+
+export * from './User/user.adapter';
+export {PATH_USER} from './User/user-api';
