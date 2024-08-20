@@ -1,3 +1,6 @@
+import {initializeStorage} from '../services/storage';
+import {inMemoryStorage} from '../services/storage/implementations/jest/inMemoryStorage';
+
 export {};
 
 const mockedNavigate = jest.fn();
@@ -11,3 +14,5 @@ jest.mock('@react-navigation/native', () => {
     }),
   };
 });
+
+initializeStorage(inMemoryStorage);

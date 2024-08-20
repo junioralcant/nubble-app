@@ -5,6 +5,8 @@ import {fireEvent, renderScreen, screen} from 'test-utils';
 
 import {AppStack} from '@routes';
 
+jest.unmock('@react-navigation/native');
+
 const mateusUserAPI: UserAPI = {
   id: 7,
   first_name: 'Mateus',
@@ -51,5 +53,7 @@ describe('SearchScreen', () => {
 
     const user2 = await screen.findByText(userMocked.user2.username);
     expect(user2).toBeTruthy();
+
+    fireEvent.press(user1);
   });
 });

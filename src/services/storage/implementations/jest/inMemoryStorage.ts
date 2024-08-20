@@ -1,0 +1,21 @@
+import {IStorage} from '../../storage.type';
+
+let storage: Record<string, any> = {};
+
+export const inMemoryStorage: IStorage = {
+  getItem: jest.fn(key => {
+    if (key in storage) {
+      return storage[key];
+    } else {
+      return null;
+    }
+  }),
+  removeItem: jest.fn(async key => {
+    if (key in storage) {
+      delete storage[key];
+    }
+  }),
+  setItem: jest.fn(async (key, value) => {
+    storage[key] = value;
+  }),
+};
