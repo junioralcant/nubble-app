@@ -9,7 +9,7 @@ import {
 
 import {buttonPresets} from './button-presets';
 
-export type ButtonPreset = 'primary' | 'outline';
+export type ButtonPreset = 'primary' | 'outline' | 'ghost';
 
 export type ButtonProps = {
   title: string;
@@ -41,7 +41,11 @@ export function Button({
       {loading ? (
         <ActivityIndicator color="error" />
       ) : (
-        <Text preset="paragraphMedium" bold color={buttonPreset.content}>
+        <Text
+          preset="paragraphMedium"
+          bold
+          color={buttonPreset.content.color}
+          {...buttonPreset.content.text}>
           {title}
         </Text>
       )}

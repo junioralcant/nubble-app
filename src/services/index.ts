@@ -7,3 +7,4 @@ export * from './storage/storage.type';
 export * from './storage/implementations/mmkv-storage';
 export * from './searchHistory';
 export * from './authCredentials';
+export * from './cameraRoll';
