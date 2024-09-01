@@ -13,7 +13,7 @@ const SCREEN_WIDTH = Dimensions.get('screen').width;
 const NUM_COLUMNS = 4;
 const ITEM_WIDTH = SCREEN_WIDTH / NUM_COLUMNS;
 export function NewPostScreen({}: AppTabScreenProps<'NewPostScreen'>) {
-  const {list} = useCameraRoll();
+  const {photoList, fetchNextPage} = useCameraRoll(true);
   function renderItem({item}: ListRenderItemInfo<string>) {
     return (
       <Image
@@ -27,10 +27,12 @@ export function NewPostScreen({}: AppTabScreenProps<'NewPostScreen'>) {
     <Screen canGoBack title="Novo post" noPaddingHorizontal>
       <FlatList
         numColumns={NUM_COLUMNS}
-        data={list}
+        data={photoList}
         renderItem={renderItem}
+        onEndReached={fetchNextPage}
+        onEndReachedThreshold={0.1}
         ListHeaderComponent={
-          <Header imageUri={list[0]} imageWidth={SCREEN_WIDTH} />
+          <Header imageUri={photoList[0]} imageWidth={SCREEN_WIDTH} />
         }
       />
     </Screen>
