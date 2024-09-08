@@ -8,6 +8,7 @@ import {AppTabBottomTabNavigatorParamsList, AppTapNavigate} from '@routes';
 import {
   PostCommentScreen,
   ProfileScreen,
+  PublishPostScreen,
   SearchScreen,
   SettingsScreen,
 } from '@screens';
@@ -22,6 +23,9 @@ export type AppStackParamsList = {
   };
   ProfileScreen: {
     userId: number;
+  };
+  PublishPostScreen: {
+    imageUri: string;
   };
 };
 
@@ -55,6 +59,8 @@ export function AppStack({initialRouteName = 'AppTabNavigate'}: Props) {
           <ProfileScreen userService={userServiceFactory()} {...props} />
         )}
       </Stack.Screen>
+
+      <Stack.Screen name="PublishPostScreen" component={PublishPostScreen} />
     </Stack.Navigator>
   );
 }
