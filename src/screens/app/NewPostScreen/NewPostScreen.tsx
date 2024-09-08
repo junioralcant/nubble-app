@@ -1,5 +1,11 @@
-import React from 'react';
-import {Dimensions, FlatList, Image, ListRenderItemInfo} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  Pressable,
+} from 'react-native';
 
 import {useCameraRoll} from '@services';
 
@@ -13,26 +19,39 @@ const SCREEN_WIDTH = Dimensions.get('screen').width;
 const NUM_COLUMNS = 4;
 const ITEM_WIDTH = SCREEN_WIDTH / NUM_COLUMNS;
 export function NewPostScreen({}: AppTabScreenProps<'NewPostScreen'>) {
-  const {photoList, fetchNextPage} = useCameraRoll(true);
+  const [selectImage, setSelectImage] = useState<string>();
+  const {photoList, fetchNextPage} = useCameraRoll(true, onSelectImage);
+
+  const flatLisRef = useRef<FlatList>(null);
+
+  function onSelectImage(imageUri: string) {
+    setSelectImage(imageUri);
+    flatLisRef.current?.scrollToOffset({offset: 0, animated: true});
+  }
+
   function renderItem({item}: ListRenderItemInfo<string>) {
     return (
-      <Image
-        key={item}
-        source={{uri: item}}
-        style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
-      />
+      <Pressable onPress={() => onSelectImage(item)}>
+        <Image
+          key={item}
+          source={{uri: item}}
+          style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
+        />
+      </Pressable>
     );
   }
+
   return (
     <Screen canGoBack title="Novo post" noPaddingHorizontal>
       <FlatList
+        ref={flatLisRef}
         numColumns={NUM_COLUMNS}
         data={photoList}
         renderItem={renderItem}
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
         ListHeaderComponent={
-          <Header imageUri={photoList[0]} imageWidth={SCREEN_WIDTH} />
+          <Header imageUri={selectImage} imageWidth={SCREEN_WIDTH} />
         }
       />
     </Screen>

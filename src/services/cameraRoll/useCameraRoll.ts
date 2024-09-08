@@ -5,7 +5,10 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 
 import {cameraRollService} from './camera-roll-service';
 
-export function useCameraRoll(hasPermission: boolean) {
+export function useCameraRoll(
+  hasPermission: boolean,
+  onInitialLoad?: (imageUri: string) => void,
+) {
   const [list, setList] = useState<string[]>([]);
 
   const query = useInfiniteQuery({
@@ -22,7 +25,12 @@ export function useCameraRoll(hasPermission: boolean) {
       }, []);
 
       setList(newList);
+
+      if (query.data.pages.length === 1 && onInitialLoad) {
+        onInitialLoad(newList[0]);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.data]);
 
   return {
