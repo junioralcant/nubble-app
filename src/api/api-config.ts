@@ -4,7 +4,7 @@ import {
   authServiceFactory,
 } from '@domain';
 import axios from 'axios';
-export const BASE_URL = 'http://192.168.0.102:3333';
+export const BASE_URL = 'http://192.168.0.105:3333';
 
 export const api = axios.create({
   baseURL: BASE_URL,
